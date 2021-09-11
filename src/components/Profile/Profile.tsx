@@ -1,5 +1,6 @@
 import React from "react";
 import s from "./Profile.module.css"
+import MyPosts from "./MyPosts/MyPosts";
 
 function Profile () {
     return (
@@ -11,20 +12,7 @@ function Profile () {
                 <img src={'https://lh3.googleusercontent.com/proxy/B9naiOt0v3HsAZuX6I8uTiXXvqwYuL6vR8dD8NizisOpnQ739zO4KbgrldC4cKawBl4xzoSbvIfMk-6twHTwGn-AdylpCU6SVVUE7a_YvlVghUA0t_O7ZWotgiDup4unsCw8'} alt={'wtf'} />
                 + description
             </div>
-            <div>
-                My posts
-                <div>
-                    New post
-                </div>
-                <div className={s.posts}>
-                    <div className={s.item}>
-                        post 1
-                    </div>
-                    <div className={s.item}>
-                        post 2
-                    </div>
-                </div>
-            </div>
+            <MyPosts />
         </div>
     )
 }
