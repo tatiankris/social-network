@@ -2,6 +2,7 @@ import React from "react";
 import s from "./MyPosts.module.css"
 import Post from "./Post/Post";
 
+
 function MyPosts () {
     return (
             <div>
@@ -12,13 +13,8 @@ function MyPosts () {
 
                 </div>
                 <div className={s.posts}>
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
+                    <Post message={"Hi, how are you?"} likeCount={3}/>
+                    <Post message={"It's my first post"} likeCount={5}/>
                 </div>
             </div>
     )
