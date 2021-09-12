@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Navbar.module.css"
 
-function Navbar () {
+function  Navbar () {
     return (
         <nav className={s.nav}>
             <div className={s.item}>

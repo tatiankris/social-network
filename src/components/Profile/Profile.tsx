@@ -4,7 +4,7 @@ import MyPosts from "./MyPosts/MyPosts";
 
 function Profile () {
     return (
-        <div className={s.content}>
+        <div>
             <div>
                 <img src={'https://html5css.ru/howto/img_snow_wide.jpg'} alt={'wtf'}/>
             </div>
