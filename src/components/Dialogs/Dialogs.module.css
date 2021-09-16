@@ -4,19 +4,21 @@
 }
 
 .dialogsItems {
-  padding: 10px;
+    padding: 10px;
+    color: black;
 }
 
 .dialog {
-
+    color: black;
 }
 
 .messages {
     padding: 10px;
+
 }
 
 .massage {
-
+    color: black;
 }
 
 .dialogs .active {

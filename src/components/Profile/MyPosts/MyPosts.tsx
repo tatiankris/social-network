@@ -4,6 +4,22 @@ import Post from "./Post/Post";
 
 
 function MyPosts() {
+
+    type postDataType = {
+        id: number;
+        message: string;
+        likeCount: number;
+    }
+
+    let posts:Array<postDataType> = [
+        {id:1, message:"Hi, how are you?", likeCount:3},
+        {id:2, message:"It's my first post", likeCount:6},
+        {id:2, message:"doooo", likeCount:11},
+        {id:2, message:"looove", likeCount:5},
+    ]
+
+    let postsElements = posts.map( p => <Post message={p.message} likeCount={p.likeCount}/>)
+
     return (
         <div className={s.postBlock}>
             <h3>My posts</h3>
@@ -16,8 +32,7 @@ function MyPosts() {
                 </div>
             </div>
             <div className={s.posts}>
-                <Post message={"Hi, how are you?"} likeCount={3}/>
-                <Post message={"It's my first post"} likeCount={5}/>
+                {postsElements}
             </div>
         </div>
     )
