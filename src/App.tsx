@@ -10,21 +10,22 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
+import {AppPropsType} from "./index";
 
 
 
-function App() {
+function App(props: AppPropsType) {
     return (
         <BrowserRouter>
             <div className={'app-wrapper'}>
                 <Header />
                 <Navbar />
                 <div className={'app-wrapper-content'}>
-                    <Route component={Dialogs} path={'/dialogs'}  />
-                    <Route component={Profile} path={'/profile'}  />
-                    <Route component={News} path={'/news'}  />
-                    <Route component={Music} path={'/music'}  />
-                    <Route component={Settings} path={'/settings'}  />
+                    <Route path={'/dialogs'} render={ () => <Dialogs dialogs={props.d} messages={props.m}/>  } />
+                    <Route path={'/profile'} render={ () => <Profile posts={props.p}/> } />
+                    <Route path={'/news'} render={ () => <News /> } />
+                    <Route path={'/music'} render={ () => <Music /> } />
+                    <Route path={'/settings'} render={ () => <Settings /> } />
                 </div>
             </div>
         </BrowserRouter>
