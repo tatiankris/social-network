@@ -1,6 +1,7 @@
 export type stateType = {
     profilePage: profilePageType
     dialogsPage: dialogsPageType
+    sidebar: sidebarType
 }
 export type profilePageType = {
     posts: Array<postsType>
@@ -9,6 +10,10 @@ export type profilePageType = {
 export type dialogsPageType = {
     dialogs: Array<dialogsType>
     messages: Array<messagesType>
+}
+
+export type sidebarType = {
+    friends: Array<dialogsType>
 }
 
 export type postsType = {
@@ -56,6 +61,13 @@ let state:stateType = {
             {id: 5, message: 'Yo'},
         ],
     },
+    sidebar: {
+        friends: [
+            {id: 1, name: 'Dimych'},
+            {id: 2, name: 'Andrew'},
+            {id: 3, name: 'Sveta'},
+        ]
+    }
 }
 
 export default state;
