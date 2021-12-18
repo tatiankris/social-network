@@ -82,12 +82,12 @@ export let addPost = () => {
     }
     state.profilePage.posts.push(newPost);
     state.profilePage.newPostText = " ";
-    rerenderEntireTree(state, addPost, updateNewPostText);
+    rerenderEntireTree(state);
 }
 
 export let updateNewPostText = (newText: string) =>{
     state.profilePage.newPostText = newText;
-    rerenderEntireTree(state, addPost, updateNewPostText);
+    rerenderEntireTree(state);
 }
 
 export default state;

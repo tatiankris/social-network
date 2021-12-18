@@ -10,7 +10,7 @@ type ProfilePropsType = {
     updateNewPostText: (newText: string) => void
 }
 
-function Profile (props: ProfilePropsType ) {
+function  Profile (props: ProfilePropsType ) {
 
     return (
         <div>
