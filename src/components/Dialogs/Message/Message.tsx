@@ -7,7 +7,9 @@ type MessagePropsType = {
 
 const Message = (props: MessagePropsType) => {
     return (
+
         <div className={s.massage}>{props.message}</div>
+
     )
 }
 

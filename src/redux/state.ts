@@ -14,6 +14,7 @@ export type profilePageType = {
 export type dialogsPageType = {
     dialogs: Array<dialogsType>
     messages: Array<messagesType>
+    newMessageText: string
 }
 
 export type sidebarType = {
@@ -50,10 +51,10 @@ let store: storeType = {
     _state: {
         profilePage: {
             posts: [
-                {id:1, message:"Hi, how are you?", likeCount:3},
-                {id:2, message:"It's my first post", likeCount:6},
-                {id:3, message:"doooo", likeCount:11},
-                {id:4, message:"looove", likeCount:5},
+                {id: 1, message: "Hi, how are you?", likeCount: 3},
+                {id: 2, message: "It's my first post", likeCount: 6},
+                {id: 3, message: "doooo", likeCount: 11},
+                {id: 4, message: "looove", likeCount: 5},
             ],
             newPostText: "good morning"
         },
@@ -74,6 +75,7 @@ let store: storeType = {
                 {id: 4, message: 'Yo'},
                 {id: 5, message: 'Yo'},
             ],
+            newMessageText: ''
         },
         sidebar: {
             friends: [
@@ -83,14 +85,14 @@ let store: storeType = {
             ]
         }
     },
-    _callbackSubscriber (state: stateType) {
-            console.log('State changed')
-        },
+    _callbackSubscriber(state: stateType) {
+        console.log('State changed')
+    },
 
-    getState () {
+    getState() {
         return this._state;
     },
-    subscribe (observer: (state: stateType) => void) {
+    subscribe(observer: (state: stateType) => void) {
         this._callbackSubscriber = observer;
     },
 
@@ -107,11 +109,25 @@ let store: storeType = {
         } else if (action.type === "UPDATE-NEW-POST-TEXT") {
             this._state.profilePage.newPostText = action.newText;
             this._callbackSubscriber(this._state);
-        }},
+        } else if (action.type === "ADD-MESSAGE-AC") {
+            const newMessage:messagesType = {
+                id: 6, message: this._state.dialogsPage.newMessageText
+            };
+            this._state.dialogsPage.messages.push(newMessage);
+            this._state.dialogsPage.newMessageText = '';
+            this._callbackSubscriber(this._state);
+        } else if (action.type === "ON-MESSAGE-CHANGE-AC") {
+            this._state.dialogsPage.newMessageText = action.text;
+            this._callbackSubscriber(this._state);
+        }
+    }
 }
 
 
-export type ActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof onPostChangeActionCreator>
+export type ActionsTypes = ReturnType<typeof addPostActionCreator> |
+                            ReturnType<typeof onPostChangeActionCreator> |
+                                ReturnType<typeof addMessageAC> |
+                                ReturnType<typeof onMessageChangeAC>
 
 export const addPostActionCreator = () => {
     return {type: "ADD-POST"} as const
@@ -123,6 +139,19 @@ export const onPostChangeActionCreator = (text: string) => {
         newText: text
     } as const
 }
+
+export const addMessageAC = () => {
+    return {type: "ADD-MESSAGE-AC"} as const
+}
+
+
+export const onMessageChangeAC = (text: string) => {
+    return {
+        type: "ON-MESSAGE-CHANGE-AC",
+        text: text
+    } as const
+}
+
 
 export default store;
 
