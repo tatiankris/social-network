@@ -38,69 +38,162 @@ export type messagesType = {
 }
 
 
-let state:stateType = {
-    profilePage: {
-        posts: [
-            {id:1, message:"Hi, how are you?", likeCount:3},
-            {id:2, message:"It's my first post", likeCount:6},
-            {id:3, message:"doooo", likeCount:11},
-            {id:4, message:"looove", likeCount:5},
-        ],
-        newPostText: "good morning"
+export type storeType = {
+    _state: stateType
+    getState: () => stateType
+    _callbackSubscriber: (state: stateType) => void
+    subscribe: (observer: (state: stateType) => void) => void
+    dispatch: (action: ActionsTypes) => void
+}
+
+let store: storeType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id:1, message:"Hi, how are you?", likeCount:3},
+                {id:2, message:"It's my first post", likeCount:6},
+                {id:3, message:"doooo", likeCount:11},
+                {id:4, message:"looove", likeCount:5},
+            ],
+            newPostText: "good morning"
+        },
+
+        dialogsPage: {
+            dialogs: [
+                {id: 1, name: 'Dimych'},
+                {id: 2, name: 'Andrew'},
+                {id: 3, name: 'Sveta'},
+                {id: 4, name: 'Sasha'},
+                {id: 5, name: 'Viktor'},
+                {id: 6, name: 'Valera'},
+            ],
+            messages: [
+                {id: 1, message: 'Hi'},
+                {id: 2, message: 'How is your it?'},
+                {id: 3, message: 'Goodbye'},
+                {id: 4, message: 'Yo'},
+                {id: 5, message: 'Yo'},
+            ],
+        },
+        sidebar: {
+            friends: [
+                {id: 1, name: 'Dimych'},
+                {id: 2, name: 'Andrew'},
+                {id: 3, name: 'Sveta'},
+            ]
+        }
+    },
+    _callbackSubscriber (state: stateType) {
+            console.log('State changed')
+        },
+
+    getState () {
+        return this._state;
+    },
+    subscribe (observer: (state: stateType) => void) {
+        this._callbackSubscriber = observer;
     },
 
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: 'Dimych'},
-            {id: 2, name: 'Andrew'},
-            {id: 3, name: 'Sveta'},
-            {id: 4, name: 'Sasha'},
-            {id: 5, name: 'Viktor'},
-            {id: 6, name: 'Valera'},
-        ],
-        messages: [
-            {id: 1, message: 'Hi'},
-            {id: 2, message: 'How is your it?'},
-            {id: 3, message: 'Goodbye'},
-            {id: 4, message: 'Yo'},
-            {id: 5, message: 'Yo'},
-        ],
-    },
-    sidebar: {
-        friends: [
-            {id: 1, name: 'Dimych'},
-            {id: 2, name: 'Andrew'},
-            {id: 3, name: 'Sveta'},
-        ]
-    }
+    dispatch(action) {
+        if (action.type === "ADD-POST") {
+            const newPost: postsType = {
+                id: 5,
+                message: this._state.profilePage.newPostText,
+                likeCount: 0
+            }
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = " ";
+            this._callbackSubscriber(this._state);
+        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+            this._state.profilePage.newPostText = action.newText;
+            this._callbackSubscriber(this._state);
+        }},
 }
 
-let rerenderEntireTree = (state: stateType) => {
-    console.log('State changed')
+
+export type ActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof onPostChangeActionCreator>
+
+export const addPostActionCreator = () => {
+    return {type: "ADD-POST"} as const
 }
 
-export let addPost = () => {
-    const newPost: postsType = {
-        id: 5,
-        message: state.profilePage.newPostText,
-        likeCount: 0
-    }
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = " ";
-    rerenderEntireTree(state);
+export const onPostChangeActionCreator = (text: string) => {
+    return {
+        type: "UPDATE-NEW-POST-TEXT",
+        newText: text
+    } as const
 }
 
-export let updateNewPostText = (newText: string) =>{
-    state.profilePage.newPostText = newText;
-    rerenderEntireTree(state);
-}
+export default store;
 
-export const subscribe = (observer: (state: stateType) => void) => {
-    rerenderEntireTree = observer;
-}
 
-export default state;
 
+// window.store = store;
+
+// export type ActionsTypes = addPostActionType | onPostChangeActionType
+// type addPostActionType = ReturnType<typeof addPostActionCreator>
+// type onPostChangeActionType = ReturnType<typeof onPostChangeActionCreator>
+
+// let state:stateType = {
+//     profilePage: {
+//         posts: [
+//             {id:1, message:"Hi, how are you?", likeCount:3},
+//             {id:2, message:"It's my first post", likeCount:6},
+//             {id:3, message:"doooo", likeCount:11},
+//             {id:4, message:"looove", likeCount:5},
+//         ],
+//         newPostText: "good morning"
+//     },
+//
+//     dialogsPage: {
+//         dialogs: [
+//             {id: 1, name: 'Dimych'},
+//             {id: 2, name: 'Andrew'},
+//             {id: 3, name: 'Sveta'},
+//             {id: 4, name: 'Sasha'},
+//             {id: 5, name: 'Viktor'},
+//             {id: 6, name: 'Valera'},
+//         ],
+//         messages: [
+//             {id: 1, message: 'Hi'},
+//             {id: 2, message: 'How is your it?'},
+//             {id: 3, message: 'Goodbye'},
+//             {id: 4, message: 'Yo'},
+//             {id: 5, message: 'Yo'},
+//         ],
+//     },
+//     sidebar: {
+//         friends: [
+//             {id: 1, name: 'Dimych'},
+//             {id: 2, name: 'Andrew'},
+//             {id: 3, name: 'Sveta'},
+//         ]
+//     }
+// }
+//
+// let rerenderEntireTree = (state: stateType) => {
+//     console.log('State changed')
+// }
+//
+// export let addPost = () => {
+//     const newPost: postsType = {
+//         id: 5,
+//         message: state.profilePage.newPostText,
+//         likeCount: 0
+//     }
+//     state.profilePage.posts.push(newPost);
+//     state.profilePage.newPostText = " ";
+//     rerenderEntireTree(state);
+// }
+//
+// export let updateNewPostText = (newText: string) =>{
+//     state.profilePage.newPostText = newText;
+//     rerenderEntireTree(state);
+// }
+//
+// export const subscribe = (observer: (state: stateType) => void) => {
+//     rerenderEntireTree = observer;
+// }
 
 
 

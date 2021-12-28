@@ -10,10 +10,11 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
-import {addPost, stateType, updateNewPostText} from "./redux/state";
+import {ActionsTypes, storeType} from "./redux/state";
 
 export type AppPropsType = {
-    state: stateType
+    store: storeType
+    dispatch: (action: ActionsTypes) => void
 }
 
 
@@ -22,12 +23,11 @@ function App(props: AppPropsType) {
         <BrowserRouter>
             <div className={'app-wrapper'}>
                 <Header />
-                <Navbar friendsState={props.state.sidebar}/>
+                <Navbar friendsState={props.store.getState().sidebar}/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/dialogs'} render={ () => <Dialogs state={props.state.dialogsPage} />  } />
-                    <Route path={'/profile'} render={ () => <Profile profilePage={props.state.profilePage}
-                                                                     addPost={addPost}
-                                                                     updateNewPostText={updateNewPostText}/> } />
+                    <Route path={'/dialogs'} render={ () => <Dialogs state={props.store.getState().dialogsPage} />  } />
+                    <Route path={'/profile'} render={ () => <Profile profilePage={props.store.getState().profilePage}
+                                                                     dispatch={props.dispatch}/> } />
                     <Route path={'/news'} render={ () => <News /> } />
                     <Route path={'/music'} render={ () => <Music /> } />
                     <Route path={'/settings'} render={ () => <Settings /> } />
