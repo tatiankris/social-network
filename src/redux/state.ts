@@ -1,3 +1,11 @@
+import profileReducer, {addPostActionCreator, onPostChangeActionCreator} from "./profile-reducer";
+import dialogsReducer, {sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_MESSAGE_AC = "ADD-MESSAGE-AC";
+const ON_MESSAGE_CHANGE_AC = "ON-MESSAGE-CHANGE-AC";
 
 
 
@@ -58,7 +66,6 @@ let store: storeType = {
             ],
             newPostText: "good morning"
         },
-
         dialogsPage: {
             dialogs: [
                 {id: 1, name: 'Dimych'},
@@ -97,60 +104,42 @@ let store: storeType = {
     },
 
     dispatch(action) {
-        if (action.type === "ADD-POST") {
-            const newPost: postsType = {
-                id: 5,
-                message: this._state.profilePage.newPostText,
-                likeCount: 0
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = " ";
-            this._callbackSubscriber(this._state);
-        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-            this._state.profilePage.newPostText = action.newText;
-            this._callbackSubscriber(this._state);
-        } else if (action.type === "ADD-MESSAGE-AC") {
-            const newMessage:messagesType = {
-                id: 6, message: this._state.dialogsPage.newMessageText
-            };
-            this._state.dialogsPage.messages.push(newMessage);
-            this._state.dialogsPage.newMessageText = '';
-            this._callbackSubscriber(this._state);
-        } else if (action.type === "ON-MESSAGE-CHANGE-AC") {
-            this._state.dialogsPage.newMessageText = action.text;
-            this._callbackSubscriber(this._state);
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+
+        this._callbackSubscriber(this._state);
     }
 }
 
 
 export type ActionsTypes = ReturnType<typeof addPostActionCreator> |
                             ReturnType<typeof onPostChangeActionCreator> |
-                                ReturnType<typeof addMessageAC> |
-                                ReturnType<typeof onMessageChangeAC>
+                                ReturnType<typeof sendMessageCreator> |
+                                ReturnType<typeof updateNewMessageBodyCreator>
 
-export const addPostActionCreator = () => {
-    return {type: "ADD-POST"} as const
-}
+// export const addPostActionCreator = () => {
+//     return {type: ADD_POST} as const
+// }
+//
+// export const onPostChangeActionCreator = (text: string) => {
+//     return {
+//         type: UPDATE_NEW_POST_TEXT,
+//         newText: text
+//     } as const
+// }
 
-export const onPostChangeActionCreator = (text: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: text
-    } as const
-}
-
-export const addMessageAC = () => {
-    return {type: "ADD-MESSAGE-AC"} as const
-}
-
-
-export const onMessageChangeAC = (text: string) => {
-    return {
-        type: "ON-MESSAGE-CHANGE-AC",
-        text: text
-    } as const
-}
+// export const sendMessageCreator = () => {
+//     return {type: ADD_MESSAGE_AC} as const
+// }
+//
+//
+// export const updateNewMessageBodyCreator = (text: string) => {
+//     return {
+//         type: ON_MESSAGE_CHANGE_AC,
+//         text: text
+//     } as const
+// }
 
 
 export default store;
