@@ -2,10 +2,6 @@ import profileReducer, {addPostActionCreator, onPostChangeActionCreator} from ".
 import dialogsReducer, {sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const ADD_MESSAGE_AC = "ADD-MESSAGE-AC";
-const ON_MESSAGE_CHANGE_AC = "ON-MESSAGE-CHANGE-AC";
 
 
 
@@ -104,9 +100,9 @@ let store: storeType = {
     },
 
     dispatch(action) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action);
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
-        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        // this._state.profilePage = profileReducer(this._state.profilePage, action);
+        // this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        // this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 
         this._callbackSubscriber(this._state);
     }
@@ -118,28 +114,7 @@ export type ActionsTypes = ReturnType<typeof addPostActionCreator> |
                                 ReturnType<typeof sendMessageCreator> |
                                 ReturnType<typeof updateNewMessageBodyCreator>
 
-// export const addPostActionCreator = () => {
-//     return {type: ADD_POST} as const
-// }
-//
-// export const onPostChangeActionCreator = (text: string) => {
-//     return {
-//         type: UPDATE_NEW_POST_TEXT,
-//         newText: text
-//     } as const
-// }
 
-// export const sendMessageCreator = () => {
-//     return {type: ADD_MESSAGE_AC} as const
-// }
-//
-//
-// export const updateNewMessageBodyCreator = (text: string) => {
-//     return {
-//         type: ON_MESSAGE_CHANGE_AC,
-//         text: text
-//     } as const
-// }
 
 
 export default store;

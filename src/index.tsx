@@ -4,8 +4,8 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { stateType } from "./redux/state";
-import store from "./redux/state";
+import { stateType } from "./redux/store";
+import store from "./redux/redux-store";
 
 export const rerenderEntireTree = (state: stateType) => {
     ReactDOM.render(
@@ -19,7 +19,11 @@ export const rerenderEntireTree = (state: stateType) => {
 
 rerenderEntireTree(store.getState());
 
-store.subscribe(rerenderEntireTree);
+
+store.subscribe(() => {
+    let state = store.getState();
+    rerenderEntireTree(state);
+});
 
 
 
