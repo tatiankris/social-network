@@ -4,7 +4,7 @@ import s from "./Navbar.module.css"
 import {sidebarType} from "../../redux/store";
 
 type NavbarPropsType = {
-    friendsState: sidebarType;
+    friendsState?: sidebarType;
 }
 
 function  Navbar (props: NavbarPropsType) {
@@ -27,10 +27,10 @@ function  Navbar (props: NavbarPropsType) {
             </div>
             <div className={s.item}>
                 <div>Friends</div>
-                <div>
-                    {props.friendsState.friends.map(m => <div><img src={'https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg'} alt={'wtf'}/>
-                        <span>{m.name}</span></div>)}
-                </div>
+                {/*<div>*/}
+                {/*    {props.friendsState.friends.map(m => <div><img src={'https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg'} alt={'wtf'}/>*/}
+                {/*        <span>{m.name}</span></div>)}*/}
+                {/*</div>*/}
             </div>
 
         </nav>
