@@ -2,10 +2,10 @@
 const ADD_MESSAGE_AC = "ADD-MESSAGE-AC";
 const ON_MESSAGE_CHANGE_AC = "ON-MESSAGE-CHANGE-AC";
 
-type InitialStateType = typeof initialState;
-type InitialStateMessageType = typeof initialState.messages[0];
+export type InitialStateType = typeof dialogsPage;
+type InitialStateMessageType = typeof dialogsPage.messages[0];
 
-let initialState = {
+let dialogsPage = {
     dialogs: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrew'},
@@ -25,19 +25,24 @@ let initialState = {
 }
 
 
-const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes) => {
+const dialogsReducer = (state: InitialStateType = dialogsPage, action: ActionsTypes) => {
     switch (action.type) {
+
         case ADD_MESSAGE_AC:
             const newMessage: InitialStateMessageType = {
                 id: 6, message: state.newMessageText
             };
-            state.messages.push(newMessage);
-            state.newMessageText = '';
-            return state;
+            return {
+                ...state,
+                messages: [...state.messages, newMessage],
+                newMessageText: " ",
+            };
 
-        case ON_MESSAGE_CHANGE_AC:
-            state.newMessageText = action.text;
-            return state;
+
+
+        case ON_MESSAGE_CHANGE_AC: {
+            return {...state, newMessageText: action.text};
+        }
 
         default:
             return state;

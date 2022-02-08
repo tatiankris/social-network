@@ -6,9 +6,9 @@ import './index.css';
 import App from './App';
 import { stateType } from "./redux/store";
 import store from "./redux/redux-store";
-import {Provider} from './StoreContext';
+import {Provider} from "react-redux";
 
-export const rerenderEntireTree = (state: stateType) => {
+
     ReactDOM.render(
         <React.StrictMode>
             <Provider store={store}>
@@ -19,15 +19,15 @@ export const rerenderEntireTree = (state: stateType) => {
 
         document.getElementById('root')
     );
-}
-
-rerenderEntireTree(store.getState());
 
 
-store.subscribe(() => {
-    let state = store.getState();
-    rerenderEntireTree(state);
-});
+// rerenderEntireTree(store.getState());
+
+
+// store.subscribe(() => {
+//     let state = store.getState();
+//     rerenderEntireTree(state);
+// });
 
 
 
