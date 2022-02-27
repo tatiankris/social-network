@@ -10,7 +10,8 @@ export type userType = {
     followed: boolean,
     photos: PhotosType,
     status: string,
-    location: locationType
+    // location: locationType
+    // uniqueUrlName: string
 }
 type PhotosType = {
     small: string,

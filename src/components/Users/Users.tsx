@@ -5,27 +5,39 @@ import styles from "./Users.module.css"
 import axios from "axios";
 import userPhoto from '../../assets/images/user.png'
 
+import {userType} from "../../redux/users-reducer";
+
+
+
+
+
 type UsersPropsType = mapStateToPropsUsersType & mapDispatchToPropsUsersType
+type itemsType = Array<userType>
 
-const Users = (props: UsersPropsType) => {
+class Users extends React.Component<UsersPropsType, Array<userType>> {
 
-    if (props.users.length === 0) {
+    constructor(props: UsersPropsType) {
+        super(props);
+    }
+
+    componentDidMount(): void {
         axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            props.setState(response.data.items);
+            this.props.setState(response.data.items);
         })
     }
 
-    return (
-        <div>
-            {props.users && props.users.map(u => (<div key={u.id}>
+    render() {
+        return (
+            <div>
+                {this.props.users && this.props.users.map(u => (<div key={u.id}>
                     <span>
                         <div>
                             <img src={u.photos.small ? u.photos.small : userPhoto} className={styles.userPhoto}/>
                         </div>
                         <div>
                             {
-                                u.followed ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
-                                    : <button onClick={() => props.follow(u.id)}>Followed</button>
+                                u.followed ? <button onClick={() => this.props.unfollow(u.id)}>Unfollow</button>
+                                    : <button onClick={() => this.props.follow(u.id)}>Followed</button>
                             }
                         </div>
                     </span>
@@ -47,8 +59,10 @@ const Users = (props: UsersPropsType) => {
                     </span>
                     </div>)
                 )}
-        </div>
-    )
+            </div>
+        )
+    }
+
 }
 
 export default Users;
