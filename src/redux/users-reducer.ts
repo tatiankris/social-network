@@ -6,11 +6,15 @@ const SET_STATE = "SET_STATE";
 export type initialStateType = typeof initialState;
 export type userType = {
     id: number,
-    firstName: string,
+    name: string,
     followed: boolean,
-    img: string,
+    photos: PhotosType,
     status: string,
     location: locationType
+}
+type PhotosType = {
+    small: string,
+    large: string,
 }
 export type locationType = {
     country: string,

@@ -26,6 +26,9 @@ function  Navbar (props: NavbarPropsType) {
                 <NavLink to={'/settings'} activeClassName={s.active}>Settings</NavLink>
             </div>
             <div className={s.item}>
+                <NavLink to={'/users'} activeClassName={s.active}>Users</NavLink>
+            </div>
+            <div className={s.item}>
                 <div>Friends</div>
                 {/*<div>*/}
                 {/*    {props.friendsState.friends.map(m => <div><img src={'https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg'} alt={'wtf'}/>*/}

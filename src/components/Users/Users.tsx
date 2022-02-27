@@ -2,23 +2,25 @@ import React from "react";
 
 import {mapDispatchToPropsUsersType, mapStateToPropsUsersType} from "./UsersContainer";
 import styles from "./Users.module.css"
+import axios from "axios";
+import userPhoto from '../../assets/images/user.png'
 
 type UsersPropsType = mapStateToPropsUsersType & mapDispatchToPropsUsersType
 
 const Users = (props: UsersPropsType) => {
 
-    if (props.users.length === 0) props.setState([
-                {id: 1, firstName: "Misha", followed: false, img:"https://cdn.mos.cms.futurecdn.net/FSsqmaFEC6igagpZFnqmSZ.jpg", status: "i'm boring human", location: {country: "Belarus", city:"Minsk"}},
-                {id: 2, firstName: "Vovan", followed: false, img:"https://cdn.mos.cms.futurecdn.net/FSsqmaFEC6igagpZFnqmSZ.jpg", status: "i like cars", location: {country: "Belarus", city:"Minsk"}},
-                {id: 3, firstName: "Aleksey", followed: false, img:"https://cdn.mos.cms.futurecdn.net/FSsqmaFEC6igagpZFnqmSZ.jpg", status: "don't write to me", location: {country: "Belarus", city:"Minsk"}},
-            ])
+    if (props.users.length === 0) {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            props.setState(response.data.items);
+        })
+    }
 
     return (
         <div>
             {props.users && props.users.map(u => (<div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.img} className={styles.userPhoto}/>
+                            <img src={u.photos.small ? u.photos.small : userPhoto} className={styles.userPhoto}/>
                         </div>
                         <div>
                             {
@@ -29,7 +31,7 @@ const Users = (props: UsersPropsType) => {
                     </span>
                         <span>
                         <div>
-                           {u.firstName}
+                           {u.name}
                         </div>
                         <div>
                             {u.status}
@@ -37,10 +39,10 @@ const Users = (props: UsersPropsType) => {
                     </span>
                         <span>
                         <div>
-                           {u.location.country},
+                           {"u.location.country"},
                         </div>
                         <div>
-                            {u.location.city}
+                            {"u.location.city"}
                         </div>
                     </span>
                     </div>)
