@@ -12,7 +12,7 @@ import {userType} from "../../redux/users-reducer";
 
 
 type UsersPropsType = mapStateToPropsUsersType & mapDispatchToPropsUsersType
-type itemsType = Array<userType>
+// type itemsType = Array<userType>
 
 class Users extends React.Component<UsersPropsType, Array<userType>> {
 
@@ -21,14 +21,39 @@ class Users extends React.Component<UsersPropsType, Array<userType>> {
     }
 
     componentDidMount(): void {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            this.props.setState(response.data.items);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setState(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalCount);
+        })
+    }
+
+    onPageChanged(page: number) {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setState(response.data.items);
+                this.props.setCurrentPage(page);
         })
     }
 
     render() {
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+        let pages = [];
+        for (let i=1; i <= pagesCount; i++) {
+            pages.push(i);
+        }
+
         return (
             <div>
+                <div>
+                    {
+                        pages.map(p => <span
+                            className={this.props.currentPage === p ? styles.selectedPage : ""}
+                            onClick={(e) => {this.onPageChanged(p)}}
+                        > {p}</span>)
+                    }
+                </div>
                 {this.props.users && this.props.users.map(u => (<div key={u.id}>
                     <span>
                         <div>
