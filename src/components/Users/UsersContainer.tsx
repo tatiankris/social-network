@@ -34,7 +34,6 @@ class UsersContainer extends React.Component <UsersContainerPropsType, Array<use
     }
 
     onPageChanged(page: number): void {
-        debugger
         this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
             .then(response => {

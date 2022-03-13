@@ -17,8 +17,6 @@ export type InitialStatePostType = {
 }
 
 
-
-
 let profilePage = {
     posts: [
         {id: 1, message: "Hi, how are you?", likeCount: 3},
