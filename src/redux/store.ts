@@ -1,4 +1,4 @@
-import profileReducer, {addPostActionCreator, onPostChangeActionCreator} from "./profile-reducer";
+import profileReducer, {addPost, onPostChange} from "./profile-reducer";
 import dialogsReducer, {sendMessageCreator, updateNewMessageBodyCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
@@ -109,8 +109,8 @@ let store: storeType = {
 }
 
 
-export type ActionsTypes = ReturnType<typeof addPostActionCreator> |
-                            ReturnType<typeof onPostChangeActionCreator> |
+export type ActionsTypes = ReturnType<typeof addPost> |
+                            ReturnType<typeof onPostChange> |
                                 ReturnType<typeof sendMessageCreator> |
                                 ReturnType<typeof updateNewMessageBodyCreator>
 

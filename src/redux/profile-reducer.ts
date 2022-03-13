@@ -1,10 +1,22 @@
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
-export type InitialStateType = typeof profilePage;
 
-export type InitialStatePostType = typeof profilePage.posts[0];
+export type InitialStateType = {
+    posts: Array<InitialStatePostType>,
+    newPostText: string,
+    profile: any,
+}
+
+export type InitialStatePostType = {
+    id: number,
+    message: string,
+    likeCount: number
+}
+
+
 
 
 let profilePage = {
@@ -14,7 +26,8 @@ let profilePage = {
         {id: 3, message: "doooo", likeCount: 11},
         {id: 4, message: "mythings", likeCount: 5},
     ],
-    newPostText: "lll"
+    newPostText: "null",
+    profile: null,
 }
 
 const profileReducer = (state: InitialStateType = profilePage, action: ActionsTypes) => {
@@ -42,6 +55,13 @@ const profileReducer = (state: InitialStateType = profilePage, action: ActionsTy
            };
         }
 
+        case SET_USER_PROFILE: {
+
+            return {
+                ...state, profile: action.profile,
+            }
+        }
+
         default:
             return state;
 
@@ -51,16 +71,22 @@ const profileReducer = (state: InitialStateType = profilePage, action: ActionsTy
 
 export default profileReducer;
 
-type ActionsTypes = ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof onPostChangeActionCreator>
+type ActionsTypes = ReturnType<typeof addPost> |
+    ReturnType<typeof onPostChange> | ReturnType<typeof setUserProfile>
 
-export const addPostActionCreator = () => {
+export const addPost = () => {
     return {type: ADD_POST} as const
 }
 
-export const onPostChangeActionCreator = (text: string) => {
+export const onPostChange = (text: string) => {
     return {
         type: UPDATE_NEW_POST_TEXT,
         newText: text
+    } as const
+}
+export const setUserProfile = (profile: any) => {
+    return {
+        type: SET_USER_PROFILE,
+        profile
     } as const
 }

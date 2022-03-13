@@ -4,6 +4,8 @@ import styles from "./Users.module.css"
 import userPhoto from '../../assets/images/user.png'
 
 import {userType} from "../../redux/users-reducer";
+import { NavLink } from "react-router-dom";
+
 
 type UsersPropsType = {
     users: Array<userType>
@@ -15,9 +17,7 @@ type UsersPropsType = {
     onPageChanged: (page: number) => void
 }
 
-
-function Users (props: UsersPropsType) {
-
+    function Users (props: UsersPropsType) {
 
         let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
         let pages = [];
@@ -31,14 +31,16 @@ function Users (props: UsersPropsType) {
                     {
                         pages.map(p => <span
                             className={props.currentPage === p ? styles.selectedPage : ""}
-                            onClick={(e) => {props.onPageChanged(p)}}
+                            onClick={() => props.onPageChanged(p)}
                         > {p}</span>)
                     }
                 </div>
                 {props.users && props.users.map(u => (<div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photos.small ? u.photos.small : userPhoto} className={styles.userPhoto}/>
+                            <NavLink to={`/profile/${u.id}`}>
+                                <img src={u.photos.small ? u.photos.small : userPhoto} className={styles.userPhoto}/>
+                            </NavLink>
                         </div>
                         <div>
                             {
@@ -66,7 +68,7 @@ function Users (props: UsersPropsType) {
                     </div>)
                 )}
             </div>
-        )
+        );
     }
 
 
