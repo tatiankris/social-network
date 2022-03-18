@@ -14,7 +14,6 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType, authRedu
             {withCredentials: true
             })
             .then( response => {
-                debugger
                 if (response.data.resultCode === 0) {
                     let {email, id, login} = response.data.data;
                     this.props.setAuthUserData(email, id, login);
