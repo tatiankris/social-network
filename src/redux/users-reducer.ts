@@ -5,8 +5,17 @@ const SET_STATE = "SET_STATE";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS"
 
-export type initialStateType = typeof initialState;
+export type initialStateType = {
+    users: Array<userType>,
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: Array<number>
+}
+
 export type userType = {
     id: number,
     name: string,
@@ -31,6 +40,7 @@ let initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
+    followingInProgress: [],
 }
 
 let usersReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
@@ -61,6 +71,14 @@ let usersReducer = (state: initialStateType = initialState, action: ActionTypes)
 
         case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.isFetching}
+        }
+
+        case TOGGLE_IS_FOLLOWING_PROGRESS: {
+            return {
+                ...state, followingInProgress: state.isFetching
+                    ? [...state.followingInProgress, action.userID]
+                    : state.followingInProgress.filter(id => id === action.userID)
+            }
         }
 
         default:
@@ -111,9 +129,18 @@ export let toggleIsFetching = (isFetching: boolean ) => {
     } as const
 }
 
+export let toggleIsFollowingProgress  = (isFetching: boolean, userID: number) => {
+    return {
+        type: TOGGLE_IS_FOLLOWING_PROGRESS,
+        isFetching,
+        userID,
+    } as const
+}
+
 export type ActionTypes = ReturnType<typeof follow> | ReturnType<typeof unfollow> |
                             ReturnType<typeof setState> | ReturnType<typeof setCurrentPage> |
-                                ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleIsFetching>;
+                                ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleIsFetching> |
+                                    ReturnType<typeof toggleIsFollowingProgress>;
 
 
 export default usersReducer;
