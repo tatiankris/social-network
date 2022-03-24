@@ -1,3 +1,5 @@
+import {Dispatch} from "redux";
+import {followAPI, usersAPI} from "../api/api";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -137,10 +139,71 @@ export let toggleIsFollowingProgress  = (isFetching: boolean, userID: number) =>
     } as const
 }
 
+
+export let getUsers = (currentPage: number, pageSize: number) => {
+
+    return (dispatch: Dispatch) => {
+
+        dispatch(toggleIsFetching(true));
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setState(data.items));
+                dispatch(setTotalUsersCount(data.totalCount));
+
+            })};
+}
+
+export let getUsers2 = (page: number, pageSize: number) => {
+
+    return (dispatch: Dispatch) => {
+
+        dispatch(toggleIsFetching(true));
+        usersAPI.getUsers2(page, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setState(data.items));
+                dispatch(setCurrentPage(page));
+            })
+
+    }};
+
+export let followTC = (id: number) => {
+
+    return (dispatch: Dispatch) => {
+
+        dispatch(toggleIsFollowingProgress(true, id))
+        followAPI.follow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(follow(id));
+                }
+                dispatch(toggleIsFollowingProgress(false, id))
+            })
+
+    }};
+
+export let unfollowTC = (id: number) => {
+
+    return (dispatch: Dispatch) => {
+
+        dispatch(toggleIsFollowingProgress(true, id));
+        followAPI.unfollow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollow(id));
+                }
+                dispatch(toggleIsFollowingProgress(false, id))
+            })
+
+    }};
+
 export type ActionTypes = ReturnType<typeof follow> | ReturnType<typeof unfollow> |
                             ReturnType<typeof setState> | ReturnType<typeof setCurrentPage> |
                                 ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleIsFetching> |
                                     ReturnType<typeof toggleIsFollowingProgress>;
+
+export type getUsersReturnType = ReturnType<typeof getUsers>
 
 
 export default usersReducer;

@@ -1,3 +1,7 @@
+import {Dispatch} from "redux";
+import {authAPI, followAPI, usersAPI} from "../api/api";
+import {setCurrentPage, setState, setTotalUsersCount, toggleIsFetching} from "./users-reducer";
+
 const SET_USER_DATA = "SET_USER_DATA";
 
 export type authReducerStateType = {
@@ -38,7 +42,23 @@ export const setAuthUserData = (email: string, id: number, login: string) => {
     }
 }
 
+export let authAPITC = () => {
+
+    return (dispatch: Dispatch) => {
+
+        authAPI.getAuthUserData()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    let {email, id, login} = data.data;
+                    dispatch(setAuthUserData(email, id, login));
+                }
+            })
+    }}
+
 type ActionsType = ReturnType<typeof setAuthUserData>
+
+
+
 
 
 
