@@ -6,6 +6,8 @@ import {
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import Preloader from "../common/Preloader/Preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 export type UsersContainerPropsType = mapStateToPropsUsersType & mapDispatchToPropsUsersType
@@ -78,4 +80,5 @@ export type mapDispatchToPropsUsersType = {
 
 
 
-export default connect (mapStateToProps, {getUsers, getUsers2, followTC, unfollowTC}) (UsersContainer);
+export default compose <React.ComponentType>(connect (mapStateToProps, {getUsers, getUsers2, followTC, unfollowTC}),
+    withAuthRedirect) (UsersContainer);

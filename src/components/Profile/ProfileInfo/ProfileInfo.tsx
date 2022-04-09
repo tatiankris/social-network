@@ -13,9 +13,9 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
 )
     return (
         <div>
-            <div>
-                <img src={'https://html5css.ru/howto/img_snow_wide.jpg'} alt={'wtf'}/>
-            </div>
+            {/*<div>*/}
+            {/*    <img src={'https://html5css.ru/howto/img_snow_wide.jpg'} alt={'wtf'}/>*/}
+            {/*</div>*/}
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large}/>
                 ava + description

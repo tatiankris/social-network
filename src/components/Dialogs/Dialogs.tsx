@@ -5,7 +5,7 @@ import Message from "./Message/Message";
 import {dialogsPageType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
 
-type DialogsPropsType = {
+export type DialogsPropsType = {
     dialogsPage: dialogsPageType
     onSendMessageClick: () => void
     onNewMessageChange: (text: string) => void
@@ -27,8 +27,7 @@ const Dialogs = (props: DialogsPropsType) => {
         props.onNewMessageChange(text);
     }
 
-    if (props.isAuth === false)
-        return <Redirect to={'/login'} />
+
 
     return (
         <div className={s.dialogs}>
