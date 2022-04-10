@@ -7,6 +7,7 @@ import authReducer from "./auth-reducer";
 import thunk from "redux-thunk";
 
 
+
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,

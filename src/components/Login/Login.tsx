@@ -1,8 +1,13 @@
 import React from "react";
 
+// const LoginForm = () => {
+//     return <form>
+//     </form>
+// }
+
 const Login = () => {
     return <div>
-        <h1>LOGIN</h1>
+        Login
     </div>
 }
 

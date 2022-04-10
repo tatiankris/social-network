@@ -12,10 +12,10 @@ export type authReducerStateType = {
 }
 
 let initialState = {
-    id: 0,
+    id: 2,
     email: 'null',
     login: 'null',
-    isAuth: false
+    isAuth: true
 }
 
 
