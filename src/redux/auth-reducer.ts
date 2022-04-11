@@ -15,7 +15,7 @@ let initialState = {
     id: 2,
     email: 'null',
     login: 'null',
-    isAuth: true
+    isAuth: false
 }
 
 

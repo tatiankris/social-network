@@ -28,8 +28,9 @@ class ProfileContainer extends React.Component <CommonPropsType, Array<InitialSt
         if (!userId) {
             userId = '2';
         }
-        this.props.getProfileData(userId);
+
         this.props.getStatus(userId);
+        this.props.getProfileData(userId);
     }
 
     render () {
@@ -58,5 +59,5 @@ const mapStateToProps = (state: AppStateType):mapStateToPropsProfileType  => {
 }
 
 export default compose <React.ComponentType>(connect (mapStateToProps, {setUserProfile, getProfileData, getStatus, updateStatus}),
-    withAuthRedirect, withRouter) (ProfileContainer);
+     withRouter, withAuthRedirect) (ProfileContainer);
 
