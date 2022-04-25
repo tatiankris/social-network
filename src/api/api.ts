@@ -1,4 +1,6 @@
 import axios from "axios";
+import {LoginDataType} from "../redux/auth-reducer";
+import {FormDataType} from "../components/Login/Login";
 
 const instance = axios.create({
     withCredentials: true,
@@ -50,7 +52,14 @@ export const authAPI = {
             .then(
                 response => response.data
             )
-    }
+    },
+
+    // login (formData: FormDataType) {
+    //     return instance.post(`auth/login`)
+    //         .then(
+    //             response => response.data
+    //         )
+    // }
 }
 
 export const profileAPI = {

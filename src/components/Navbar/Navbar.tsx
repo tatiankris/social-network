@@ -1,7 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Navbar.module.css"
-import {sidebarType} from "../../redux/store";
+
+export type sidebarType = {
+    friends: Array<dialogsType>
+}
+
+export type dialogsType = {
+    id: number
+    name: string
+}
 
 type NavbarPropsType = {
     friendsState?: sidebarType;

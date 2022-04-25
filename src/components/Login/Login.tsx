@@ -1,11 +1,12 @@
 import React from "react";
 import {Field, InjectedFormProps} from "redux-form";
 import { reduxForm } from 'redux-form'
+import {useDispatch} from "react-redux";
 
-type FormDataType = {
+export type FormDataType = {
     login: string
     password: string
-    remember_me: boolean
+    rememberMe: boolean,
 }
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return <form onSubmit={props.handleSubmit}>
@@ -16,7 +17,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <Field component={'input'} name={'password'} placeholder={'Password'}/>
         </div>
         <div>
-            <Field component={'input'} name={'remember me'} type={'checkbox'} />remember me
+            <Field component={'input'} name={'rememberMe'} type={'checkbox'} />remember me
         </div>
         <div>
            <button>Login</button>
@@ -28,8 +29,11 @@ const LoginReduxForm = reduxForm<FormDataType>({form: 'login'} ) (LoginForm)
 
 const Login = () => {
 
+    // let dispatch = useDispatch();
+
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData);
+        console.log(formData)
+        // dispatch(loginTC(formData));
     }
 
     return <div>

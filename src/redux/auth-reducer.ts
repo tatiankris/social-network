@@ -1,8 +1,17 @@
 import {Dispatch} from "redux";
 import {authAPI, followAPI, usersAPI} from "../api/api";
-import {setCurrentPage, setState, setTotalUsersCount, toggleIsFetching} from "./users-reducer";
+import {locationType, setCurrentPage, setState, setTotalUsersCount, toggleIsFetching} from "./users-reducer";
+import {FormDataType} from "../components/Login/Login";
 
 const SET_USER_DATA = "SET_USER_DATA";
+const LOGIN = 'LOGIN';
+
+export type LoginDataType ={
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: boolean
+}
 
 export type authReducerStateType = {
     id: number,
@@ -27,7 +36,14 @@ const authReducer = (state: authReducerStateType = initialState, action: Actions
                 ...state,
                 ...action.data,
                 isAuth: true
-            };
+            }
+
+        // case LOGIN:
+        //     return {
+        //         ...state,
+        //         id: action.userID,
+        //         isAuth: true
+        //     }
 
         default:
             return state
@@ -42,6 +58,13 @@ export const setAuthUserData = (email: string, id: number, login: string) => {
     }
 }
 
+// export const loginAC = (userID: number): LoginACType => {
+//     return {
+//         type: LOGIN,
+//         userID: userID
+//     } as const
+// }
+
 export let authAPITC = () => {
 
     return (dispatch: Dispatch) => {
@@ -55,9 +78,34 @@ export let authAPITC = () => {
             })
     }}
 
-type ActionsType = ReturnType<typeof setAuthUserData>
+// export let loginTC = (formData: FormDataType) => {
+//
+//     return (dispatch: Dispatch) => {
+//
+//         authAPI.login(formData)
+//             .then(data => {
+//                 if (data.data.userID)
+//                 {
+//                     dispatch(loginAC(data.data.userID));
+//                 }
+//             })
+//     }}
 
 
+type ActionsType = setAuthUserDataType | LoginACType
+
+type setAuthUserDataType = {
+    type: 'SET_USER_DATA',
+    data: {
+        id: number,
+        email: string,
+        login: string}
+}
+
+type LoginACType = {
+    type: 'LOGIN',
+    userID: number
+}
 
 
 
