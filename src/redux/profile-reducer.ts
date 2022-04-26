@@ -10,7 +10,6 @@ const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
 
 export type InitialStateType = {
     posts: Array<InitialStatePostType>,
-    newPostText: string,
     profile: any,
     status: string,
 }
@@ -29,7 +28,6 @@ let profilePage = {
         {id: 3, message: "doooo", likeCount: 11},
         {id: 4, message: "mythings", likeCount: 5},
     ],
-    newPostText: "null",
     profile: null,
     status: ""
 }
@@ -40,24 +38,15 @@ const profileReducer = (state: InitialStateType = profilePage, action: ActionsTy
         case ADD_POST:
             let newPost: InitialStatePostType = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostBody,
                 likeCount: 0,
             };
 
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: " ",
 
             };
-
-        case UPDATE_NEW_POST_TEXT: {
-
-           return {
-               ...state,
-               newPostText: action.newText,
-           };
-        }
 
         case SET_USER_PROFILE: {
 
@@ -86,8 +75,11 @@ export default profileReducer;
 type ActionsTypes = ReturnType<typeof addPost> |
     ReturnType<typeof onPostChange> | ReturnType<typeof setUserProfile> | ReturnType<typeof setProfileStatus>
 
-export const addPost = () => {
-    return {type: ADD_POST} as const
+export const addPost = (newPostBody: string) => {
+    return {
+        type: ADD_POST,
+        newPostBody
+    } as const
 }
 
 export const onPostChange = (text: string) => {

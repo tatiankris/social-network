@@ -24,7 +24,6 @@ class ProfileContainer extends React.Component <CommonPropsType, Array<InitialSt
 
     componentDidMount = ():void => {
         let userId = this.props.match.params.userId;
-        debugger
         if (!userId) {
             userId = '2';
         }
