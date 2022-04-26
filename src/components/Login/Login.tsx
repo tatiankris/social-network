@@ -1,22 +1,48 @@
 import React from "react";
 import {Field, InjectedFormProps} from "redux-form";
 import { reduxForm } from 'redux-form'
-import {useDispatch} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
+import {loginTC} from "../../redux/auth-reducer";
+import {AppStateType} from "../../redux/redux-store";
+import {Redirect} from "react-router-dom";
 
 export type FormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean,
 }
+
+type LoginPropsType = {
+    loginTC: (formData: FormDataType) => void
+    isAuth: boolean
+}
+
+const Login = (props: LoginPropsType) => {
+
+    const onSubmit = (formData: FormDataType) => {
+        props.loginTC(formData);
+    }
+
+    if (props.isAuth) {
+        return <Redirect to={'/profile'} />
+    }
+
+       return <div>
+        <h2>Login</h2>
+        <LoginReduxForm onSubmit={onSubmit}/>
+    </div>
+}
+
+
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
-            <Field component={Input} name={'login'} placeholder={'Login'} validate={[required]} />
+            <Field component={Input} placeholder={'Email'} name={'email'} validate={[required]} />
         </div>
         <div>
-            <Field component={Input} name={'password'} placeholder={'Password'} validate={[required]} />
+            <Field component={Input} name={'password'} placeholder={'Password'} type={"password"} validate={[required]} />
         </div>
         <div>
             <Field component={'input'} name={'rememberMe'} type={'checkbox'} />remember me
@@ -29,19 +55,13 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'} ) (LoginForm)
 
-const Login = () => {
-
-    // let dispatch = useDispatch();
-
-    const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
-        // dispatch(loginTC(formData));
+type MapStateToPropsType = {
+    isAuth: boolean
+}
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+    return {
+        isAuth: state.auth.isAuth
     }
-
-    return <div>
-        <h2>Login</h2>
-        <LoginReduxForm onSubmit={onSubmit}/>
-    </div>
 }
 
-export default Login;
+export default connect (mapStateToProps, {loginTC})  (Login);

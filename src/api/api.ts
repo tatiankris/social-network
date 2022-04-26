@@ -54,12 +54,14 @@ export const authAPI = {
             )
     },
 
-    // login (formData: FormDataType) {
-    //     return instance.post(`auth/login`)
-    //         .then(
-    //             response => response.data
-    //         )
-    // }
+    login ({email, password, rememberMe}: FormDataType) {
+        return instance.post(`auth/login`, {email, password, rememberMe})
+    },
+
+    logout () {
+        return instance.delete(`auth/login`)
+    }
+
 }
 
 export const profileAPI = {

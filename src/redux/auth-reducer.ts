@@ -4,7 +4,7 @@ import {locationType, setCurrentPage, setState, setTotalUsersCount, toggleIsFetc
 import {FormDataType} from "../components/Login/Login";
 
 const SET_USER_DATA = "SET_USER_DATA";
-const LOGIN = 'LOGIN';
+
 
 export type LoginDataType ={
     email: string
@@ -22,8 +22,8 @@ export type authReducerStateType = {
 
 let initialState = {
     id: 2,
-    email: 'null',
-    login: 'null',
+    email: "null",
+    login: "null",
     isAuth: false
 }
 
@@ -34,16 +34,8 @@ const authReducer = (state: authReducerStateType = initialState, action: Actions
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload
             }
-
-        // case LOGIN:
-        //     return {
-        //         ...state,
-        //         id: action.userID,
-        //         isAuth: true
-        //     }
 
         default:
             return state
@@ -51,61 +43,68 @@ const authReducer = (state: authReducerStateType = initialState, action: Actions
 
 export default authReducer;
 
-export const setAuthUserData = (email: string, id: number, login: string) => {
-    return {
-        type: SET_USER_DATA,
-        data: {id, email, login}
+
+type ActionsType = setAuthUserDataType
+
+type setAuthUserDataType = {
+    type: 'SET_USER_DATA',
+    payload: {
+        id: number,
+        email: string,
+        login: string,
+        isAuth: boolean
     }
+
 }
 
-// export const loginAC = (userID: number): LoginACType => {
-//     return {
-//         type: LOGIN,
-//         userID: userID
-//     } as const
-// }
+export const setAuthUserData = (id: number, email: string, login: string, isAuth: boolean) => {
+    return {
+        type: SET_USER_DATA,
+        payload: {id, email, login, isAuth}
+    }
+}
 
 export let authAPITC = () => {
 
     return (dispatch: Dispatch) => {
-
         authAPI.getAuthUserData()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {email, id, login} = data.data;
-                    dispatch(setAuthUserData(email, id, login));
+                    dispatch(setAuthUserData(email, id, login, true));
                 }
             })
     }}
 
-// export let loginTC = (formData: FormDataType) => {
-//
-//     return (dispatch: Dispatch) => {
-//
-//         authAPI.login(formData)
-//             .then(data => {
-//                 if (data.data.userID)
-//                 {
-//                     dispatch(loginAC(data.data.userID));
-//                 }
-//             })
-//     }}
+export let loginTC = ({email, password, rememberMe}: FormDataType) => {
 
-
-type ActionsType = setAuthUserDataType | LoginACType
-
-type setAuthUserDataType = {
-    type: 'SET_USER_DATA',
-    data: {
-        id: number,
-        email: string,
-        login: string}
+    return (dispatch: Dispatch) => {
+        authAPI.login({email, password, rememberMe})
+            .then(response => {
+                if (response.data.resultCode === 0)
+                {
+                    let {id, email, login} = response.data.data
+                    dispatch(setAuthUserData(id, email, login, true));
+                }
+            })}
 }
 
-type LoginACType = {
-    type: 'LOGIN',
-    userID: number
+export let logoutTC = () => {
+
+    return (dispatch: Dispatch) => {
+        authAPI.logout()
+            .then(response => {
+                if (response.data.resultCode === 0)
+                {
+                    dispatch(setAuthUserData(0, "null", "null", false));
+                }
+            })}
 }
+
+
+
+
+
 
 
 
