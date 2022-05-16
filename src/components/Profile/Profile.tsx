@@ -10,8 +10,7 @@ type ProfilePropsType = {
     updateStatus: (status: string) => void
 }
 
-function  Profile (props: ProfilePropsType ) {
-
+const Profile = (props: ProfilePropsType ) =>{
     return (
         <div>
             <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>

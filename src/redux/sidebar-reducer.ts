@@ -10,14 +10,14 @@ let initialState = {
         ]
 }
 
-const sidebarReducer = (state: InitialStateType = initialState, action: ActionsTypes) => {
+const sidebarReducer = (state: InitialStateType = initialState, action: SidebarActionsTypes): InitialStateType => {
         return state;
 }
 
 export default sidebarReducer;
 
 
-type ActionsTypes = ReturnType<typeof sidebarCreator>;
+export type SidebarActionsTypes = ReturnType<typeof sidebarCreator>;
 export const sidebarCreator = () => {
         return
 }

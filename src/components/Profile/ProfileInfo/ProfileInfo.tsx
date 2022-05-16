@@ -14,13 +14,14 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     if(!props.profile) return (
         <Preloader />
 )
+    const photo = String(props.profile.photos.large);
     return (
         <div>
             {/*<div>*/}
             {/*    <img src={'https://html5css.ru/howto/img_snow_wide.jpg'} alt={'wtf'}/>*/}
             {/*</div>*/}
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large}/>
+                <img src={photo}/>
                 <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>

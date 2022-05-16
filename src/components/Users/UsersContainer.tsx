@@ -79,6 +79,6 @@ export type mapDispatchToPropsUsersType = {
 }
 
 
-
-export default compose <React.ComponentType>(connect (mapStateToProps, {getUsers, getUsers2, followTC, unfollowTC}),
-    withAuthRedirect) (UsersContainer);
+export default compose<React.ComponentType>
+(connect(mapStateToProps, {getUsers, getUsers2, followTC, unfollowTC})
+)(UsersContainer);

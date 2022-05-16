@@ -10,7 +10,6 @@ import {maxLengthCreater, required} from "../../utils/validators/validators";
 export type dialogsPageType = {
     dialogs: Array<dialogsType>
     messages: Array<messagesType>
-    newMessageText: string
 }
 export type dialogsType = {
     id: number

@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
+import {TypedDispatch} from "./redux-store";
 
 
 const ADD_POST = "ADD-POST";
@@ -32,7 +33,7 @@ let profilePage = {
     status: ""
 }
 
-const profileReducer = (state: InitialStateType = profilePage, action: ActionsTypes) => {
+const profileReducer = (state: InitialStateType = profilePage, action: ProfileActionsTypes): InitialStateType => {
     switch (action.type) {
 
         case ADD_POST:
@@ -72,7 +73,7 @@ const profileReducer = (state: InitialStateType = profilePage, action: ActionsTy
 
 export default profileReducer;
 
-type ActionsTypes = ReturnType<typeof addPost> |
+export type ProfileActionsTypes = ReturnType<typeof addPost> |
     ReturnType<typeof onPostChange> | ReturnType<typeof setUserProfile> | ReturnType<typeof setProfileStatus>
 
 export const addPost = (newPostBody: string) => {
@@ -103,9 +104,9 @@ export const setProfileStatus = (status: string) => {
 
 
 
-export let getProfileData = (userId: string) => {
+export let getProfileData = (userId: number) => {
 
-    return (dispatch: Dispatch) => {
+    return (dispatch: TypedDispatch) => {
         profileAPI.getProfileData(userId)
             .then(data => {
                 dispatch(setUserProfile(data));
@@ -113,9 +114,9 @@ export let getProfileData = (userId: string) => {
     }
 }
 
-export let getStatus = (userId: string) => {
+export let getStatus = (userId: number) => {
 
-    return (dispatch: Dispatch) => {
+    return (dispatch: TypedDispatch) => {
         profileAPI.getStatus(userId)
             .then(data => {
                dispatch(setProfileStatus(data))
@@ -125,7 +126,7 @@ export let getStatus = (userId: string) => {
 
 export let updateStatus = (status: string) => {
 
-    return (dispatch: Dispatch) => {
+    return (dispatch: TypedDispatch) => {
         profileAPI.updateStatus(status)
             .then(data => {
                 if (data.resultCode === 0) {

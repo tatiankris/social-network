@@ -1,7 +1,9 @@
 import {Dispatch} from "redux";
-import {authAPI, followAPI, usersAPI} from "../api/api";
-import {locationType, setCurrentPage, setState, setTotalUsersCount, toggleIsFetching} from "./users-reducer";
+import {authAPI} from "../api/api";
 import {FormDataType} from "../components/Login/Login";
+import {stopSubmit} from "redux-form";
+import {TypedDispatch} from "./redux-store";
+
 
 const SET_USER_DATA = "SET_USER_DATA";
 
@@ -20,6 +22,8 @@ export type authReducerStateType = {
     isAuth: boolean,
 }
 
+export type GetAuthUserDataType = ReturnType<typeof getAuthUserDataTC>
+
 let initialState = {
     id: 2,
     email: "null",
@@ -28,7 +32,7 @@ let initialState = {
 }
 
 
-const authReducer = (state: authReducerStateType = initialState, action: ActionsType) => {
+const authReducer = (state: authReducerStateType = initialState, action: AuthActionsType): authReducerStateType => {
     switch (action.type) {
 
         case SET_USER_DATA:
@@ -44,7 +48,7 @@ const authReducer = (state: authReducerStateType = initialState, action: Actions
 export default authReducer;
 
 
-type ActionsType = setAuthUserDataType
+export type AuthActionsType = setAuthUserDataType
 
 type setAuthUserDataType = {
     type: 'SET_USER_DATA',
@@ -57,41 +61,41 @@ type setAuthUserDataType = {
 
 }
 
-export const setAuthUserData = (id: number, email: string, login: string, isAuth: boolean) => {
+export const setAuthUserData = (id: number, email: string, login: string, isAuth: boolean): setAuthUserDataType => {
     return {
         type: SET_USER_DATA,
         payload: {id, email, login, isAuth}
     }
 }
 
-export let authAPITC = () => {
-
-    return (dispatch: Dispatch) => {
-        authAPI.getAuthUserData()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    let {email, id, login} = data.data;
-                    dispatch(setAuthUserData(email, id, login, true));
+export let getAuthUserDataTC = () => (dispatch: TypedDispatch) => {
+        return authAPI.getAuthUserData()
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    let {id ,email, login} = response.data.data;
+                    dispatch(setAuthUserData(id ,email, login, true));
                 }
             })
-    }}
 
-export let loginTC = ({email, password, rememberMe}: FormDataType) => {
+    }
 
-    return (dispatch: Dispatch) => {
-        authAPI.login({email, password, rememberMe})
+export let loginTC = ({email, password, rememberMe}: FormDataType) => (dispatch: TypedDispatch) => {
+        return authAPI.login({email, password, rememberMe})
             .then(response => {
                 if (response.data.resultCode === 0)
                 {
                     let {id, email, login} = response.data.data
                     dispatch(setAuthUserData(id, email, login, true));
+                } else {
+                    const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+                    dispatch(stopSubmit('login', {_error: message}));
                 }
             })}
-}
+
 
 export let logoutTC = () => {
 
-    return (dispatch: Dispatch) => {
+    return (dispatch: TypedDispatch) => {
         authAPI.logout()
             .then(response => {
                 if (response.data.resultCode === 0)

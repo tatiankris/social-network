@@ -48,10 +48,8 @@ export const followAPI = {
 export const authAPI = {
 
     getAuthUserData () {
-        return instance.get(`auth/me`)
-            .then(
-                response => response.data
-            )
+        const promise = instance.get<ResponseType<{id: number, email: string, login: string}>>(`auth/me`)
+        return promise
     },
 
     login ({email, password, rememberMe}: FormDataType) {
@@ -66,14 +64,14 @@ export const authAPI = {
 
 export const profileAPI = {
 
-    getProfileData (userId: string) {
+    getProfileData (userId: number) {
         return instance.get(`profile/` + userId)
             .then(
                 response => response.data
             )
     },
 
-    getStatus  (userId: string) {
+    getStatus  (userId: number) {
         return instance.get(`profile/status/` + userId)
             .then(
                 response => response.data
@@ -86,4 +84,10 @@ export const profileAPI = {
                 response => response.data
             )
     }
+}
+
+type ResponseType<D> ={
+    resultCode: number
+    messages: Array<string>
+    data: D
 }

@@ -7,6 +7,8 @@ import {required} from "../../utils/validators/validators";
 import {loginTC} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
+import styles from "./Login.module.css";
+import formStyle from "../common/FormsControls/FormsControls.module.css"
 
 export type FormDataType = {
     email: string
@@ -50,6 +52,10 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         <div>
            <button>Login</button>
         </div>
+        {props.error && <div className={formStyle.formSummaryError}>
+            {props.error}
+        </div>
+        }
     </form>
 }
 
