@@ -141,11 +141,13 @@ export let toggleIsFollowingProgress  = (isFetching: boolean, userID: number) =>
 }
 
 
-export let getUsers = (currentPage: number, pageSize: number) => {
+export let requestUsers = (currentPage: number, pageSize: number) => {
 
     return (dispatch: TypedDispatch) => {
 
         dispatch(toggleIsFetching(true));
+        dispatch(setCurrentPage(currentPage));
+
         usersAPI.getUsers(currentPage, pageSize)
             .then(data => {
                 dispatch(toggleIsFetching(false));
@@ -155,11 +157,13 @@ export let getUsers = (currentPage: number, pageSize: number) => {
             })};
 }
 
-export let getUsers2 = (page: number, pageSize: number) => {
+export let requestCurrentUsers = (page: number, pageSize: number) => {
 
     return (dispatch: TypedDispatch) => {
 
         dispatch(toggleIsFetching(true));
+        dispatch(setCurrentPage(page));
+
         usersAPI.getUsers2(page, pageSize)
             .then(data => {
                 dispatch(toggleIsFetching(false));
@@ -204,7 +208,7 @@ export type UsersActionTypes = ReturnType<typeof follow> | ReturnType<typeof unf
                                 ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleIsFetching> |
                                     ReturnType<typeof toggleIsFollowingProgress>;
 
-export type getUsersReturnType = ReturnType<typeof getUsers>
+export type getUsersReturnType = ReturnType<typeof requestUsers>
 
 
 export default usersReducer;

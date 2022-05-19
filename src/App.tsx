@@ -13,11 +13,10 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import {connect, ConnectedProps} from "react-redux";
+import {connect} from "react-redux";
 import {compose} from "redux";
-import {getAuthUserDataTC} from "./redux/auth-reducer";
-import {AppReducerStateType, initializeApp, initializedSuccess} from "./redux/app-reducer";
-import {AppRootStateType, AppStateType} from "./redux/redux-store";
+import {initializeApp} from "./redux/app-reducer";
+import {AppStateType} from "./redux/redux-store";
 import Preloader from "./components/common/Preloader/Preloader";
 
 export type AppPropsType = mapDispatchToPropsType & mapStateToPropsType
