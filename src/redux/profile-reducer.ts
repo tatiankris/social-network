@@ -116,6 +116,7 @@ export let getProfileData = (userId: number) => {
 
 export let getStatus = (userId: number) => {
 
+
     return (dispatch: TypedDispatch) => {
         profileAPI.getStatus(userId)
             .then(data => {
