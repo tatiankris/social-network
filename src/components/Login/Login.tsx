@@ -21,7 +21,7 @@ type LoginPropsType = {
     isAuth: boolean
 }
 
-const Login = (props: LoginPropsType) => {
+const Login = React.memo((props: LoginPropsType) => {
 
     const onSubmit = (formData: FormDataType) => {
         props.loginTC(formData);
@@ -35,10 +35,10 @@ const Login = (props: LoginPropsType) => {
         <h2>Login</h2>
         <LoginReduxForm onSubmit={onSubmit}/>
     </div>
-}
+})
 
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = React.memo((props) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
             <Field component={Input} placeholder={'Email'} name={'email'} validate={[required]} />
@@ -57,7 +57,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         </div>
         }
     </form>
-}
+})
 
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'} ) (LoginForm)
 

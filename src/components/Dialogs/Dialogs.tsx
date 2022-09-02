@@ -26,7 +26,7 @@ export type DialogsPropsType = {
     sendMessageAC: (newMessageBody: string) => void
 }
 
-const Dialogs = (props: DialogsPropsType) => {
+const Dialogs = React.memo((props: DialogsPropsType) => {
 
     let dialogsElements = props.dialogsPage.dialogs.map( d => <DialogItem name={d.name} id={d.id}/> )
     let messagesElements = props.dialogsPage.messages.map( m => <Message message={m.message}/> )
@@ -50,14 +50,14 @@ const Dialogs = (props: DialogsPropsType) => {
             </div>
         </div>
     )
-}
+})
 
 type MessageFormDataType = {
     newMessageBody: string
 }
 const maxLength30 = maxLengthCreater(30);
 
-const AddMessageForm: React.FC<InjectedFormProps<MessageFormDataType>> = (props) => {
+const AddMessageForm: React.FC<InjectedFormProps<MessageFormDataType>> = React.memo((props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -69,7 +69,7 @@ const AddMessageForm: React.FC<InjectedFormProps<MessageFormDataType>> = (props)
             </div>
         </form>
     )
-}
+})
 
 const AddMessageFormRedux = reduxForm<MessageFormDataType>({form: "dialogAddMessageForm"}) (AddMessageForm);
 

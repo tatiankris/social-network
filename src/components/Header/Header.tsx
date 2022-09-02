@@ -8,7 +8,7 @@ type PropsType = {
     isAuth: boolean,
 }
 
-function Header (props: PropsType) {
+const Header = React.memo((props: PropsType) => {
     return (
         <header className={s.header}>
             <img src={'https://www.adobe.com/express/create/media_114db2401080d263d7338e6fab6589ca67f85274c.jpeg?width=2000&format=webply&optimize=medium'} alt={'wtf'}/>
@@ -21,6 +21,6 @@ function Header (props: PropsType) {
             </div>
         </header>
     )
-}
+})
 
 export default Header;

@@ -48,4 +48,4 @@ function  Navbar (props: NavbarPropsType) {
     )
 }
 
-export default Navbar;
+export default React.memo(Navbar);

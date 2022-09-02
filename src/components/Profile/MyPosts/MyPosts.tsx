@@ -12,7 +12,7 @@ type MyPostsPropsType = {
     addPost: (newPostBody: string) => void
 }
 
-const  MyPosts = (props: MyPostsPropsType) => {
+const  MyPosts = React.memo((props: MyPostsPropsType) => {
 
     let postsElements = props.posts.map( p => <Post message={p.message} likeCount={p.likeCount}/>)
 
@@ -32,7 +32,7 @@ const  MyPosts = (props: MyPostsPropsType) => {
             </div>
         </div>
     )
-}
+})
 
 
 export type addNewPostFormType = {
@@ -41,7 +41,7 @@ export type addNewPostFormType = {
 
 const maxLength10 = maxLengthCreater(10);
 
-const AddNewPostForm: React.FC<InjectedFormProps<addNewPostFormType>> = (props) => {
+const AddNewPostForm: React.FC<InjectedFormProps<addNewPostFormType>> = React.memo((props) => {
 
     return <form onSubmit={props.handleSubmit}>
         <div>
@@ -53,7 +53,7 @@ const AddNewPostForm: React.FC<InjectedFormProps<addNewPostFormType>> = (props) 
             <button>Add post</button>
         </div>
     </form>
-}
+})
 
 const AddNewPostFormRedux = reduxForm<addNewPostFormType>({form: 'profileAddNewPostForm'}) (AddNewPostForm)
 
