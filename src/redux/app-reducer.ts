@@ -1,11 +1,8 @@
+import {getAuthUserDataTC, GetAuthUserDataType} from "./auth-reducer"
+import {TypedDispatch} from "./redux-store"
 
 
-import {Dispatch} from "redux";
-import {getAuthUserDataTC, GetAuthUserDataType} from "./auth-reducer";
-import {TypedDispatch} from "./redux-store";
-
-
-const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
+const INITIALIZED_SUCCESS = "app/INITIALIZED_SUCCESS";
 
 export type AppReducerStateType = {
     initialized: boolean
@@ -17,13 +14,11 @@ let initialState = {
 
 const appReducer = (state: AppReducerStateType = initialState, action: ActionsType): AppReducerStateType => {
     switch (action.type) {
-
         case INITIALIZED_SUCCESS:
             return {
                 ...state,
                 initialized: true
             }
-
         default:
             return state
     }}
@@ -31,7 +26,7 @@ const appReducer = (state: AppReducerStateType = initialState, action: ActionsTy
 export type ActionsType = InitializedSuccessType
 
 type InitializedSuccessType = {
-    type: "INITIALIZED_SUCCESS"
+    type: typeof INITIALIZED_SUCCESS
 }
 
 export const initializedSuccess = () => {
@@ -40,13 +35,9 @@ export const initializedSuccess = () => {
     } as const
 }
 
-export const initializeApp = () => (dispatch: TypedDispatch) => {
-    let promise = dispatch(getAuthUserDataTC());
-   promise.then( () => {
-       dispatch(initializedSuccess());
-   });
-
-
+export const initializeApp = () => async (dispatch: TypedDispatch) => {
+    await dispatch(getAuthUserDataTC())
+    dispatch(initializedSuccess())
 }
 
 

@@ -21,13 +21,15 @@ type LoginPropsType = {
     isAuth: boolean
 }
 
-const Login = React.memo((props: LoginPropsType) => {
+const Login = React.memo(({loginTC, isAuth, ...props}: LoginPropsType) => {
+
+
 
     const onSubmit = (formData: FormDataType) => {
-        props.loginTC(formData);
+        loginTC(formData);
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={'/profile'} />
     }
 

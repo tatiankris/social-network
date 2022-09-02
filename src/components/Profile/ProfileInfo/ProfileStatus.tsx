@@ -43,7 +43,6 @@ class ProfileStatus extends React.Component <ProfileStatusPropsType> {
         }
     }
 
-
     render () {
         return <div>
             {!this.state.editMode &&

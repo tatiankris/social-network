@@ -1,5 +1,5 @@
 
-const SEND_MESSAGE = "SEND_MESSAGE";
+const SEND_MESSAGE = "dialogs/SEND_MESSAGE";
 
 export type InitialStateType = typeof dialogsPage;
 type InitialStateMessageType = typeof dialogsPage.messages[0];
@@ -22,29 +22,24 @@ let dialogsPage = {
     ]
 }
 
-
 const dialogsReducer = (state: InitialStateType = dialogsPage, action: DialogsActionsTypes): InitialStateType => {
     switch (action.type) {
-
         case SEND_MESSAGE:
             const newMessage: InitialStateMessageType = {
                 id: 6, message: action.newMessageBody
-            };
+            }
             return {
                 ...state,
                 messages: [...state.messages, newMessage],
-            };
-
-
+            }
         default:
-            return state;
+            return state
     }
 }
 
 export default dialogsReducer;
 
 export type DialogsActionsTypes = ReturnType<typeof sendMessageAC>
-
 
 export const sendMessageAC = (newMessageBody: string) => {
     return {

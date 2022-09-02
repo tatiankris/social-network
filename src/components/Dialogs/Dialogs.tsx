@@ -26,14 +26,14 @@ export type DialogsPropsType = {
     sendMessageAC: (newMessageBody: string) => void
 }
 
-const Dialogs = React.memo((props: DialogsPropsType) => {
+const Dialogs = React.memo(({dialogsPage, isAuth, sendMessageAC, ...props}: DialogsPropsType) => {
 
-    let dialogsElements = props.dialogsPage.dialogs.map( d => <DialogItem name={d.name} id={d.id}/> )
-    let messagesElements = props.dialogsPage.messages.map( m => <Message message={m.message}/> )
+    let dialogsElements = dialogsPage.dialogs.map( d => <DialogItem name={d.name} id={d.id}/> )
+    let messagesElements = dialogsPage.messages.map( m => <Message message={m.message}/> )
 
 
     let addNewMessage = (values: MessageFormDataType) => {
-        props.sendMessageAC(values.newMessageBody);
+        sendMessageAC(values.newMessageBody);
         values.newMessageBody = " ";
 
     }

@@ -5,10 +5,10 @@ type MessagePropsType = {
     message: string,
 }
 
-const Message = (props: MessagePropsType) => {
+const Message = ({message, ...props}: MessagePropsType) => {
     return (
 
-        <div className={s.massage}>{props.message}</div>
+        <div className={s.massage}>{message}</div>
 
     )
 }

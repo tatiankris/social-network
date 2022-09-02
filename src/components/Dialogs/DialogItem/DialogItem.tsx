@@ -8,13 +8,13 @@ type DialogItemPropsType = {
     id: number,
 }
 
-const DialogItem = (props: DialogItemPropsType) => {
+const DialogItem = ({name, id, ...props}: DialogItemPropsType) => {
     return (
         <div className={s.dialog}>
 
-            <NavLink to={'/dialogs/' + props.id}>
+            <NavLink to={'/dialogs/' + id}>
                 <img src={'https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg'} alt={'wtf'}/>
-                {props.name}
+                {name}
             </NavLink>
         </div>
     )
