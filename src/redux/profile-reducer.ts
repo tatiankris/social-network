@@ -92,6 +92,8 @@ export const setProfileStatus = (status: string) => {
 }
 
 export let getProfileData = (userId: number) => {
+
+
     return async (dispatch: TypedDispatch) => {
         const data = await profileAPI.getProfileData(userId)
         dispatch(setUserProfile(data))

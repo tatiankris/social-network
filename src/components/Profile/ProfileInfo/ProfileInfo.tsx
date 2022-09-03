@@ -10,10 +10,11 @@ type ProfileInfoPropsType = {
     updateStatus: (status: string) => void
 }
 
-const ProfileInfo = React.memo(({profile, status, updateStatus, ...props}: ProfileInfoPropsType) => {
-    if(!profile) return (
-        <Preloader />
-)
+const ProfileInfo = ({profile, status, updateStatus, ...props}: ProfileInfoPropsType) => {
+    if(!profile)  {
+        return <Preloader />
+    }
+
     const photo = String(profile.photos.large);
     return (
         <div>
@@ -23,6 +24,6 @@ const ProfileInfo = React.memo(({profile, status, updateStatus, ...props}: Profi
             </div>
         </div>
     )
-})
+}
 
-export default ProfileInfo;
+export default React.memo(ProfileInfo);

@@ -19,4 +19,4 @@ const Profile = ({profile, status, updateStatus, ...props}: ProfilePropsType ) =
     )
 }
 
-export default Profile;
+export default React.memo (Profile);

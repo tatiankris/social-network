@@ -5,12 +5,12 @@ import {AppStateType} from "../../redux/redux-store";
 import {
     getProfileData,
     getStatus,
-    InitialStatePostType,
     setUserProfile,
     updateStatus
 } from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 type ProfileContainerPropsType = mapStateToPropsProfileType & mapDispatchToPropsProfileType;
@@ -21,21 +21,25 @@ type ParamsType = {
 }
 
 class ProfileContainer extends React.Component<CommonPropsType> {
-    componentDidMount = () => {
+    componentDidMount () {
+        // debugger
         let userId: number|null = Number(this.props.match.params.userId);
+        if (userId) {
+            this.props.getStatus(userId);
+            this.props.getProfileData(userId);
+        }
         if (!userId) {
-            userId = this.props.autorizedUserId;
-            if (!userId){
+            let newUserId = this.props.autorizedUserId;
+            this.props.getStatus(newUserId);
+            this.props.getProfileData(newUserId);
+            if (!newUserId) {
                 this.props.history.push('/login');
             }
         }
-
-        this.props.getStatus(userId);
-        this.props.getProfileData(userId);
     }
 
     render () {
-        // console.log(this.props.autorizedUserId);
+        console.log('renderProfileContainer')
       return(
           <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
       )
@@ -76,6 +80,5 @@ const mapStateToProps = (state: AppStateType):mapStateToPropsProfileType  => {
 
 
 export default compose<React.ComponentType>(
-    connect<mapStateToPropsProfileType, mapDispatchToPropsProfileType, {},AppStateType>(mapStateToProps, {setUserProfile, getProfileData, getStatus, updateStatus}),
-    withRouter
+    withRouter, withAuthRedirect, connect<mapStateToPropsProfileType, mapDispatchToPropsProfileType, {},AppStateType>(mapStateToProps, {setUserProfile, getProfileData, getStatus, updateStatus})
 )(ProfileContainer);

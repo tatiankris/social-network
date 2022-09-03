@@ -25,8 +25,8 @@ export type GetAuthUserDataType = ReturnType<typeof getAuthUserDataTC>
 
 let initialState = {
     id: 2,
-    email: "null",
-    login: "null",
+    email: "",
+    login: "",
     isAuth: false
 }
 
@@ -69,7 +69,8 @@ export const setAuthUserData = (id: number, email: string, login: string, isAuth
 export let getAuthUserDataTC = () => async (dispatch: TypedDispatch) => {
 const response = await authAPI.getAuthUserData()
             if (response.data.resultCode === 0) {
-                let {id ,email, login} = response.data.data
+                let {id ,email, login} = response.data.data;
+                console.log(response.data.data)
                 dispatch(setAuthUserData(id ,email, login, true))
             }
 }
@@ -79,7 +80,8 @@ export let loginTC = ({email, password, rememberMe}: FormDataType) => async (dis
 const response = await authAPI.login({email, password, rememberMe})
             if (response.data.resultCode === 0)
             {
-                let {id, email, login} = response.data.data
+                let {id, email, login} = response.data.data;
+                console.log(response.data.data)  /////////////////////////////Почему-то в консоли видим только id
                 dispatch(setAuthUserData(id, email, login, true))
             } else {
                 const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"

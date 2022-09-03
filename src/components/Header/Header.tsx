@@ -9,7 +9,7 @@ type PropsType = {
 }
 
 const Header = React.memo(({logoutTC, login, isAuth, ...props}: PropsType) => {
-
+    console.log({login, isAuth}) /////////////Тут берем данные у state.auth и всё приходит
     return (
         <header className={s.header}>
             <img src={'https://www.adobe.com/express/create/media_114db2401080d263d7338e6fab6589ca67f85274c.jpeg?width=2000&format=webply&optimize=medium'} alt={'wtf'}/>

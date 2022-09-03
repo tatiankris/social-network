@@ -19,17 +19,22 @@ export type FormDataType = {
 type LoginPropsType = {
     loginTC: (formData: FormDataType) => void
     isAuth: boolean
+    id: number
+    login: string
 }
 
-const Login = React.memo(({loginTC, isAuth, ...props}: LoginPropsType) => {
+const Login = React.memo(({loginTC, isAuth, id, login, ...props}: LoginPropsType) => {
 
 
 
     const onSubmit = (formData: FormDataType) => {
         loginTC(formData);
     }
+    console.log(isAuth)
+    console.log(id) /////////////////В HeaderContainer из state.auth приходят id и login, а здесь underfined
+    console.log(login);
 
-    if (isAuth) {
+    if (isAuth && id && id !== 2 && login) {
         return <Redirect to={'/profile'} />
     }
 
@@ -65,11 +70,15 @@ const LoginReduxForm = reduxForm<FormDataType>({form: 'login'} ) (LoginForm)
 
 type MapStateToPropsType = {
     isAuth: boolean
+    id: number
+    login: string
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        id: state.auth.id,
+        login: state.auth.login
     }
 }
 
-export default connect (mapStateToProps, {loginTC})  (Login);
+export default connect (mapStateToProps, {loginTC})(Login);

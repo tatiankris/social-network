@@ -8,6 +8,7 @@ import thunk, {ThunkDispatch} from "redux-thunk";
 import { reducer as formReducer } from 'redux-form'
 import appReducer from "./app-reducer"
 import {ActionsType} from "./app-reducer"
+import {compose} from "redux";
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppActionType = ActionsType | AuthActionsType | DialogsActionsTypes | ProfileActionsTypes | UsersActionTypes
 
@@ -25,7 +26,10 @@ export const rootReducer = combineReducers({
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-let store = createStore(rootReducer, applyMiddleware(thunk))
+
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 export default store;
 

@@ -4,7 +4,7 @@ import './App.css';
 
 
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
@@ -35,7 +35,9 @@ class App extends React.Component<AppPropsType> {
                     <HeaderContainer />
                     <Navbar />
                     <div className={'app-wrapper-content'}>
-                        <Route path={'/profile/:userId?'} render={ () => <ProfileContainer /> } />
+                        {/*<Route exact path={'/'} render={ () => <Redirect to={'/profile'}/> } />*/}
+                        <Route exact path={'/profile/:userId'} render={ () => <ProfileContainer /> } />
+                        <Route exact path={'/profile'} render={ () => <ProfileContainer /> } />
                         <Route path={'/dialogs'} render={ () => <DialogsContainer /> } />
                         <Route path={'/news'} render={ () => <News /> } />
                         <Route path={'/music'} render={ () => <Music /> } />
