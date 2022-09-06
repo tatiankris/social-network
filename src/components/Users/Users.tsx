@@ -19,8 +19,9 @@ type UsersPropsType = {
 
         return (
             <div>
-                    <Paginator totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
+                    <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
                                currentPage={props.currentPage} onPageChanged={props.onPageChanged}
+                               portionSize={10}
                     />
                 {users && users.map(u => <User key={u.id}
                           user={u}
