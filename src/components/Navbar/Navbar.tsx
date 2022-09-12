@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import s from "./Navbar.module.css"
+import s from "./Navbar.module.scss"
 
 export type sidebarType = {
     friends: Array<dialogsType>
@@ -16,12 +16,14 @@ type NavbarPropsType = {
 }
 
 function  Navbar (props: NavbarPropsType) {
+
+
     return (
         <nav className={s.nav}>
             <div className={s.item}>
                 <NavLink to={'/profile'} activeClassName={s.active}>Profile</NavLink>
             </div>
-            <div className={`${s.item} ${s.active}`}>
+            <div className={`${s.item}`}>
                 <NavLink to={'/dialogs'} activeClassName={s.active}>Messages</NavLink>
             </div>
             <div className={s.item}>
@@ -34,10 +36,7 @@ function  Navbar (props: NavbarPropsType) {
                 <NavLink to={'/settings'} activeClassName={s.active}>Settings</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to={'/users'} activeClassName={s.active}>Users</NavLink>
-            </div>
-            <div className={s.item}>
-                <div>Friends</div>
+                <NavLink className={s.item} to={'/users'} activeClassName={s.active}>Users</NavLink>
             </div>
 
         </nav>

@@ -9,7 +9,7 @@ describe('Paginator component tests', () => {
         let root = component.root;
 
         let spans = root.findAllByType('span');
-        expect(spans.length).toBe(1);
+        expect(spans.length).toBe(10);
     })
     test('if items count is more then 10, button NEXT should be showed', () => {
         let component = create(<Paginator totalItemsCount={11} pageSize={1} currentPage={1} onPageChanged={() => {}} portionSize={10}/>)

@@ -1,0 +1,67 @@
+@import "../common/CommonButton/CommonButton.module";
+
+.header {
+    grid-area: h;
+    background-color: #fbf7ff;
+    position: relative;
+    border-bottom: 4px solid rgba(0, 0, 0, 1);
+
+
+    //.header img {
+    //    width: 50px;
+    //}
+
+    .logo {
+        position: absolute;
+        top: 2px   ;
+        left: 30px;
+        font-family: "Arial Black" ;
+        font-weight: normal;
+        font-size: 32px;
+        color: rgba(91, 41, 166, 1);
+        span {
+            color: #251147FF;
+        }
+    }
+    .img {
+        width: 30px;
+        padding-right: 3px;
+        //length: 40px;
+    }
+    .loginBlock {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        //margin-bottom: 70px;
+        //margin-right: 20px;
+        //margin-top: 10px;
+        .blockWithLogout {
+            span {
+                box-sizing: border-box;
+                margin-right: 14px;
+                font-size: 22px;
+                font-weight: bold;
+                color: #251147;
+            }
+        }
+        .blockWithLogin {
+            box-sizing: border-box;
+            display: inline-block;
+            @extend .commonButton;
+            text-align: center;
+            color: #251147;
+            background-color: #fbf7ff;
+            border: 2px solid rgba(61, 27, 112, .62);
+            &:hover {
+                color: white;
+                background: rgba(61, 27, 112, .62);
+            }
+        }
+    }
+}
+
+
+
+
+
+

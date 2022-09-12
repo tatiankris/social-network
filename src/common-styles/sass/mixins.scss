@@ -1,0 +1,16 @@
+
+@mixin container() {
+  box-sizing: border-box;
+  position: relative;
+  width: 900px;
+  //height: 100vh;
+  padding: 20px 0 0 0;
+  margin-left: 100px;
+  color: #fbf7ff;
+  //border: 1px solid white;
+  font-size: 14px;
+
+  display: flex;
+
+
+}

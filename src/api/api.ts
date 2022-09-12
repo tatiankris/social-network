@@ -83,6 +83,13 @@ export const profileAPI = {
             .then(
                 response => response.data
             )
+    },
+
+    updatePhoto (image: string) {
+         return instance.put(`profile/photo`, { image: image})
+            .then(
+                response => response.data
+            )
     }
 }
 

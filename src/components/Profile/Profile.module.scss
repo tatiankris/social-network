@@ -1,0 +1,8 @@
+@import "../../common-styles/sass/mixins";
+
+.main {
+
+    @include container();
+    flex-direction: column;
+
+}

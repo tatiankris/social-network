@@ -1,0 +1,19 @@
+
+.commonButton {
+  text-decoration: none;
+  padding: 2px 8px;
+  width: 80px;
+  height: 30px;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 2px;
+  background: rgba(61, 27, 112, .62);
+  &:hover {
+    color: #251147;
+    background-color: #fbf7ff;
+    border: 2px solid rgba(61, 27, 112, .62);
+  }
+
+}

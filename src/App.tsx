@@ -48,6 +48,9 @@ class App extends React.Component<AppPropsType> {
                         <Route path={'/users'} render={withSuspense(UsersContainer)}/>
                         <Route path={'/login'} render={ () => <Login /> } />
                     </div>
+                    <div className={'rigth-content'}>
+
+                    </div>
                 </div>
         );
     }

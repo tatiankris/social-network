@@ -1,10 +1,12 @@
-import preloader from "../../../assets/images/preloader.gif";
 import React from "react";
+import s from './Preloader.module.scss'
+import preloader from "../../../assets/images/25transback.gif";
+
 
 const Preloader = () => {
     return (
             <div>
-                <img src={preloader}/>
+                <img className={s.img} src={preloader}/>
             </div>
         )
 

@@ -1,4 +1,4 @@
-import {authAPI} from "../api/api";
+import {authAPI, profileAPI} from "../api/api";
 import {FormDataType} from "../components/Login/Login";
 import {stopSubmit} from "redux-form";
 import {TypedDispatch} from "./redux-store";
