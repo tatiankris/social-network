@@ -4,13 +4,23 @@
   position: relative;
   width: 900px;
   //height: 100vh;
-  padding: 20px 0 0 0;
-  margin-left: 100px;
+  padding: 20px 0 0 12px;
+  margin-left: 80px;
   color: #fbf7ff;
   //border: 1px solid white;
   font-size: 14px;
 
   display: flex;
 
+  &:before {
+    position: absolute;
+    content: '';
+    background-color: #fbf7ff;
+    border-radius: 8px;
+    width: 4px;
+    height: 100%;
+    left: 0px;
+
+  }
 
 }

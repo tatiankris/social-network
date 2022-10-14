@@ -1,5 +1,21 @@
 .postBlock {
-    padding: 10px;
+    /*padding: 10px;*/
+    /*background-color: #251147;*/
+    /*background-color: #ac96c1;*/
+    background-color: #f0ecf5;
+    margin-top: 8px;
+    /*background-color: #7402e0;*/
+    /*background-color: #5b29a6;*/
+    border-radius: 8px;
+    color: black;
+
+    box-sizing: border-box;
+    padding-left: 28px;
+    padding-top: 10px;
+    padding-bottom: 14px;
+
+
+
 }
 
 .posts {
