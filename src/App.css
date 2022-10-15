@@ -1,17 +1,25 @@
+.app-container {
+  padding: 0px 100px 0px 100px;
+  background-color: #2a272e;
+}
+
 .app-wrapper {
   /*height: 100vh;*/
   position: relative;
   display: grid;
   /*height: auto;*/
   /*min-height: 1000px;*/
+  width: 100%;
   margin: 0 auto;
-
   grid-template-areas:
-"h h h"
-"n c v";
+    "h h h"
+    "n c v";
   grid-template-rows: 54px 1fr;
   grid-template-columns: 1.6fr 10fr 1.2fr;
   grid-gap: 0px;
+
+  border:  1px solid #4a444f;
+  border-radius: 0px;
 }
 
 .app-wrapper-content {
@@ -21,11 +29,13 @@
   /*height: 100%;*/
   /*background-color: rgba(34, 34, 34, .97);*/
   /*background-color: #fbf7ff;*/
-  background-color: rgba(36, 31, 37, 1);
+  /*background-color: rgba(36, 31, 37, 1);*/
+  background-color: #2a272e;
 }
 
 .rigth-content {
   position: relative;
   grid-area: v;
-  background-color: rgba(91, 41, 166, 1);
+  /*background-color: rgba(91, 41, 166, 1);*/
+  background-color: #2a272e;
 }

@@ -1,5 +1,7 @@
-import {profileAPI} from "../api/api";
-import {TypedDispatch} from "./redux-store";
+import {profileAPI, ProfileResponseType, updateProfileDataType} from "../api/api";
+import {AppStateType, TypedDispatch} from "./redux-store";
+import {disconnect} from "cluster";
+import {FormDataType} from "../components/Profile/ProfileInfo/ProfileInfo";
 
 
 const ADD_POST = "profile/ADD-POST";
@@ -10,7 +12,7 @@ const SET_PROFILE_STATUS = 'profile/SET_PROFILE_STATUS';
 
 export type InitialStateType = {
     posts: Array<InitialStatePostType>,
-    profile: any,
+    profile: ProfileResponseType | null,
     status: string,
 }
 
@@ -96,8 +98,41 @@ export let getProfileData = (userId: number) => {
 
     return async (dispatch: TypedDispatch) => {
         const data = await profileAPI.getProfileData(userId)
-        dispatch(setUserProfile(data))
+    dispatch(setUserProfile(data))
+
     }
+}
+
+export const updateProfile = (formData: FormDataType) => async (dispatch: TypedDispatch, getState: any) => {
+    const state = getState() as AppStateType
+    if (state.profilePage.profile) {
+        const id = state.profilePage.profile?.userId
+        const fullName = state.profilePage.profile?.fullName
+        const requestData: updateProfileDataType = {
+            userId: id,
+            aboutMe: formData.aboutMe ? formData.aboutMe : 'some',
+            lookingForAJob: formData.lookingForAJob,
+            lookingForAJobDescription: 'some',
+            fullName: fullName,
+            contacts: {
+                github: formData.github,
+                vk: formData.vk,
+                facebook: formData.facebook,
+                instagram: formData.instagram,
+                twitter: formData.twitter,
+                website: formData.website,
+                youtube: formData.youtube,
+                mainLink: formData.mainLink
+            }
+        }
+
+        const data = await profileAPI.updateProfile(requestData)
+        if (data.resultCode === 0) {
+            dispatch(getProfileData(id));
+        }
+        else alert('Error: resultCode = 1')
+    }
+    else alert('Error: profile is null!')
 }
 export let getStatus = (userId: number) => {
     return async (dispatch: TypedDispatch) => {
@@ -110,6 +145,19 @@ export let updateStatus = (status: string) => {
         const data = await profileAPI.updateStatus(status)
         if (data.resultCode === 0) {
             dispatch(setProfileStatus(status))
+        }
+    }
+}
+export let updatePhoto = (image: any) => {
+    return async (dispatch: TypedDispatch, getState: any) => {
+        const state = getState() as AppStateType
+        const id = state.profilePage.profile?.userId
+        const data = await profileAPI.updatePhoto(image)
+        if (data.resultCode === 0) {
+            if (id) {
+                dispatch(getProfileData(id))
+            }
+
         }
     }
 }

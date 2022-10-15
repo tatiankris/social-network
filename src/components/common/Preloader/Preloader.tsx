@@ -8,6 +8,18 @@ const Preloader = () => {
             <div>
                 <img className={s.img} src={preloader}/>
             </div>
+        // <div style={{
+        //     margin: '20px 0',
+        //     marginBottom: '20px',
+        //     padding: '30px 50px',
+        //     textAlign: 'center',
+        //     background: 'rgba(0, 0, 0, 0.05)',
+        //     borderRadius: '4px'
+        // }}>
+        // <div>
+        //     <Spin className={s.img}/>
+        // </div>
+
         )
 
 }

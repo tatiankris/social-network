@@ -14,6 +14,7 @@ import Login from "./components/Login/Login";
 import Navbar from "./components/Navbar/Navbar";
 import withSuspense from "./hoc/withSuspense";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {inspect} from "util";
 const DialogsContainer = React.lazy(() => import ("./components/Dialogs/DialogsContainer"));
 const UsersContainer = React.lazy(() => import ("./components/Users/UsersContainer"));
 const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
@@ -32,6 +33,7 @@ class App extends React.Component<AppPropsType> {
         if (!this.props.initialized) return  <Preloader/>
 
         return (
+            <div className={'app-container'}>
                 <div className={'app-wrapper'}>
                     <HeaderContainer/>
                     {/*<React.Suspense fallback={<div>Loading...</div>}><HeaderContainer /></React.Suspense>*/}
@@ -52,6 +54,7 @@ class App extends React.Component<AppPropsType> {
 
                     </div>
                 </div>
+            </div>
         );
     }
 

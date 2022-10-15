@@ -4,9 +4,10 @@ import s from './ProfileInfo.module.scss'
 type ProfileStatusPropsType = {
     status: string
     updateStatus: (status: string) => void
+    isOwner: boolean
 }
 
-const ProfileStatusWithHooks = React.memo(({status, updateStatus, ...props}: ProfileStatusPropsType) => {
+const ProfileStatusWithHooks = React.memo(({status, updateStatus, isOwner, ...props}: ProfileStatusPropsType) => {
 
     const [profileStatus, setProfileStatus] = useState<string>(status)
     const [editMode, setEditMode] = useState<boolean>(false)
@@ -31,16 +32,23 @@ const ProfileStatusWithHooks = React.memo(({status, updateStatus, ...props}: Pro
     }
 
         return <div>
-            {!editMode &&
+
             <div className={s.editableStatus}>
-                <span onDoubleClick={activateEditMode}>{status || "----"}</span>
-            </div>
-            }
-            {editMode &&
-            <div className={s.editableStatus}>
-                <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode} value={profileStatus}></input>
-            </div>
-            }
+                {isOwner && !editMode &&
+                    <div>
+                        <span className={s.span} onDoubleClick={activateEditMode}>{status || "----"}</span>
+                        <div className={s.update}>Double click to update status.</div>
+                    </div>
+                }
+                {isOwner && editMode &&
+                    <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode}
+                           value={profileStatus}></input>
+                }
+                {!isOwner &&
+                    <span className={s.span}>{status || ""}</span>
+
+                }
+                    </div>
         </div>
 
 })

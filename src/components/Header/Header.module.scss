@@ -1,15 +1,11 @@
 @import "../common/CommonButton/CommonButton.module";
 
 .header {
+
     grid-area: h;
     background-color: #fbf7ff;
     position: relative;
-    border-bottom: 4px solid rgba(0, 0, 0, 1);
 
-
-    //.header img {
-    //    width: 50px;
-    //}
 
     .logo {
         position: absolute;
@@ -29,6 +25,7 @@
         //length: 40px;
     }
     .loginBlock {
+        font-family: "Arial Black" ;
         position: absolute;
         top: 6px;
         right: 6px;
@@ -37,10 +34,10 @@
         //margin-top: 10px;
         .blockWithLogout {
             span {
+                font-family: "Arial Black" ;
                 box-sizing: border-box;
                 margin-right: 14px;
-                font-size: 22px;
-                font-weight: bold;
+                font-size: 16px;
                 color: #251147;
             }
         }

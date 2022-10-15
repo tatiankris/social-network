@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {LoginDataType} from "../redux/auth-reducer";
 import {FormDataType} from "../components/Login/Login";
 
@@ -65,7 +65,13 @@ export const authAPI = {
 export const profileAPI = {
 
     getProfileData (userId: number) {
-        return instance.get(`profile/` + userId)
+        return instance.get<AxiosResponse<ProfileResponseType>>(`profile/` + userId)
+            .then(
+                response => response.data
+            )
+    },
+    updateProfile (data: updateProfileDataType) {
+        return instance.put<ResponseType<any>>(`profile`, data)
             .then(
                 response => response.data
             )
@@ -85,11 +91,34 @@ export const profileAPI = {
             )
     },
 
-    updatePhoto (image: string) {
-         return instance.put(`profile/photo`, { image: image})
+    updatePhoto (image: any) {
+        const formData = new FormData();
+        formData.append('image', image)
+         return instance.put<ResponseType<{ small: string, large: string } | {}>>(`profile/photo`, formData, {headers: {
+             'Content-Type': 'multipart/form-data'
+        }
+         })
             .then(
                 response => response.data
             )
+    }
+}
+
+export type updateProfileDataType = {
+    aboutMe: string
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
     }
 }
 
@@ -97,4 +126,26 @@ type ResponseType<D> ={
     resultCode: number
     messages: Array<string>
     data: D
+}
+
+export type ProfileResponseType = {
+    "aboutMe": string,
+    "contacts": {
+        "facebook": string | null,
+        "website": string | null,
+        "vk": string | null,
+        "twitter": string | null,
+        "instagram": string | null,
+        "youtube": string | null,
+        "github": string | null,
+        "mainLink": string | null
+    },
+    "lookingForAJob": boolean,
+    "lookingForAJobDescription": string | null,
+    "fullName": string,
+    "userId": number,
+    "photos": {
+        "small": string,
+        "large": string
+    }
 }
