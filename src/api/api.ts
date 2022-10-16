@@ -131,17 +131,17 @@ type ResponseType<D> ={
 export type ProfileResponseType = {
     "aboutMe": string,
     "contacts": {
-        "facebook": string | null,
-        "website": string | null,
-        "vk": string | null,
-        "twitter": string | null,
-        "instagram": string | null,
-        "youtube": string | null,
-        "github": string | null,
-        "mainLink": string | null
+        [facebook: string]: string,
+        website: string,
+        "vk": string,
+        "twitter": string,
+        "instagram": string,
+        "youtube": string,
+        "github": string,
+        "mainLink": string
     },
     "lookingForAJob": boolean,
-    "lookingForAJobDescription": string | null,
+    "lookingForAJobDescription": string | undefined ,
     "fullName": string,
     "userId": number,
     "photos": {

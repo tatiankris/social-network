@@ -1,7 +1,6 @@
 import {profileAPI, ProfileResponseType, updateProfileDataType} from "../api/api";
 import {AppStateType, TypedDispatch} from "./redux-store";
-import {disconnect} from "cluster";
-import {FormDataType} from "../components/Profile/ProfileInfo/ProfileInfo";
+import {FormDataType} from "../components/Profile/ProfileInfo/ProfileData/ProfileDataForm";
 
 
 const ADD_POST = "profile/ADD-POST";
@@ -12,7 +11,7 @@ const SET_PROFILE_STATUS = 'profile/SET_PROFILE_STATUS';
 
 export type InitialStateType = {
     posts: Array<InitialStatePostType>,
-    profile: ProfileResponseType | null,
+    profile: ProfileResponseType,
     status: string,
 }
 
@@ -30,7 +29,26 @@ let profilePage = {
         {id: 3, message: "doooo", likeCount: 11},
         {id: 4, message: "mythings", likeCount: 5},
     ],
-    profile: null,
+    profile: {
+        aboutMe: '',
+        contacts: {
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: ''
+},
+        lookingForAJob: false,
+        lookingForAJobDescription: '' ,
+        fullName: '',
+        userId: 0,
+        photos: {
+        small: '',
+        large: ''
+}},
     status: ""
 }
 
@@ -130,7 +148,7 @@ export const updateProfile = (formData: FormDataType) => async (dispatch: TypedD
         if (data.resultCode === 0) {
             dispatch(getProfileData(id));
         }
-        else alert('Error: resultCode = 1')
+        else alert('Incorrect data entered!')
     }
     else alert('Error: profile is null!')
 }

@@ -65,7 +65,7 @@ type mapDispatchToPropsProfileType = {
     updatePhoto: (image: object) => void
 }
 type mapStateToPropsProfileType = {
-    profile: ProfileResponseType | null,
+    profile: ProfileResponseType,
     status: string
     autorizedUserId: number
     isAuth: boolean

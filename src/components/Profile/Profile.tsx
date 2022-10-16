@@ -8,7 +8,7 @@ import s from './Profile.module.scss'
 
 
 type ProfilePropsType = {
-    profile: ProfileResponseType | null,
+    profile: ProfileResponseType,
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
