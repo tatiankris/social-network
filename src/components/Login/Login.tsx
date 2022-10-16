@@ -1,19 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Field, InjectedFormProps} from "redux-form";
 import { reduxForm } from 'redux-form'
-import {connect, useDispatch} from "react-redux";
+import {connect} from "react-redux";
 import {Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
-import {loginTC} from "../../redux/auth-reducer";
+import {loginTC, setCaptchaTC} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
-import styles from "./Login.module.css";
 import formStyle from "../common/FormsControls/FormsControls.module.css"
 
 export type FormDataType = {
     email: string
     password: string
     rememberMe: boolean,
+    captcha: string | null
 }
 
 type LoginPropsType = {
@@ -21,19 +21,23 @@ type LoginPropsType = {
     isAuth: boolean
     id: number
     login: string
+    captcha: string | null
+    setCaptchaTC: () => void
 }
 
-const Login = React.memo(({loginTC, isAuth, id, login, ...props}: LoginPropsType) => {
+const Login = React.memo(({loginTC,setCaptchaTC, isAuth, id, login, captcha, ...props}: LoginPropsType) => {
 
+    useEffect(() => {
+        setCaptchaTC()
+    }, [])
 
-
+    const changeCaptcha = () => {
+        setCaptchaTC()
+    }
     const onSubmit = (formData: FormDataType) => {
         loginTC(formData);
-    }
-    console.log(isAuth)
-    console.log(id) /////////////////В HeaderContainer из state.auth приходят id и login, а здесь underfined
-    console.log(login);
 
+    }
     if (isAuth && id && id !== 2 && login) {
         return <Redirect to={'/profile'} />
     }
@@ -41,12 +45,20 @@ const Login = React.memo(({loginTC, isAuth, id, login, ...props}: LoginPropsType
        return <div>
         <h2>Login</h2>
         <LoginReduxForm onSubmit={onSubmit}/>
+           {
+               captcha && <div>
+                   <img src={captcha}/>
+                   <button onClick={changeCaptcha}>change captcha</button>
+               </div>
+           }
     </div>
 })
 
-
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = React.memo((props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = React.memo((props: React.PropsWithChildren<InjectedFormProps<FormDataType, {}, string> & {children?: React.ReactNode}>) => {
     return <form onSubmit={props.handleSubmit}>
+        <div>
+            <button>Login</button>
+        </div>
         <div>
             <Field component={Input} placeholder={'Email'} name={'email'} validate={[required]} />
         </div>
@@ -57,7 +69,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = React.memo((props) 
             <Field component={'input'} name={'rememberMe'} type={'checkbox'} />remember me
         </div>
         <div>
-           <button>Login</button>
+            <Field component={Input} name={'captcha'} placeholder={'Captcha'} validate={[required]}/>
         </div>
         {props.error && <div className={formStyle.formSummaryError}>
             {props.error}
@@ -72,13 +84,15 @@ type MapStateToPropsType = {
     isAuth: boolean
     id: number
     login: string
+    captcha: string | null
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         isAuth: state.auth.isAuth,
         id: state.auth.id,
-        login: state.auth.login
+        login: state.auth.login,
+        captcha: state.auth.captcha
     }
 }
 
-export default connect (mapStateToProps, {loginTC})(Login);
+export default connect (mapStateToProps, {loginTC, setCaptchaTC})(Login);
