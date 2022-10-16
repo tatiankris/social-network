@@ -81,16 +81,6 @@ const mapStateToProps = (state: AppStateType):mapStateToPropsProfileType  => {
 
 }
 
-// export default withRouter();
-// export default withRouter((connect<mapStateToPropsProfileType, mapDispatchToPropsProfileType, {},AppStateType >
-// (mapStateToProps, {setUserProfile, getProfileData, getStatus, updateStatus}))(ProfileContainer))
-
-// export default compose (
-//     withRouter,
-//     connect<mapStateToPropsProfileType, mapDispatchToPropsProfileType, {},AppStateType >
-// (mapStateToProps, {setUserProfile, getProfileData, getStatus, updateStatus})(ProfileContainer))
-
-
 export default compose<React.ComponentType>(
     withRouter, withAuthRedirect, connect<mapStateToPropsProfileType, mapDispatchToPropsProfileType, {},AppStateType>(mapStateToProps, {setUserProfile, getProfileData, getStatus, updateStatus, updatePhoto})
 )(ProfileContainer);

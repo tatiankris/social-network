@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
@@ -15,9 +15,10 @@ import Navbar from "./components/Navbar/Navbar";
 import withSuspense from "./hoc/withSuspense";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {inspect} from "util";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 const DialogsContainer = React.lazy(() => import ("./components/Dialogs/DialogsContainer"));
 const UsersContainer = React.lazy(() => import ("./components/Users/UsersContainer"));
-const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
+// const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
 
 
 
@@ -39,10 +40,10 @@ class App extends React.Component<AppPropsType> {
                     {/*<React.Suspense fallback={<div>Loading...</div>}><HeaderContainer /></React.Suspense>*/}
                     <Navbar />
                     <div className={'app-wrapper-content'}>
-                        {/*<Route exact path={'/'} render={ () => <Redirect to={'/profile'}/> } />*/}
-                        <Route exact path={'/profile/:userId'} render={withSuspense(ProfileContainer)}
+                        <Route exact path={'/'} render={ () => <Redirect to={'/profile'}/> } />
+                        <Route exact path={'/profile/:userId'} render={ () => <ProfileContainer/>}
                         />
-                        <Route exact path={'/profile'} render={withSuspense(ProfileContainer)} />
+                        <Route exact path={'/profile'} render={() => <ProfileContainer/>} />
                         <Route path={'/dialogs'} render={withSuspense(DialogsContainer)}/>
                         <Route path={'/news'} render={ () => <News /> } />
                         <Route path={'/music'} render={ () => <Music /> } />

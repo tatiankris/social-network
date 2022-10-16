@@ -38,9 +38,10 @@ const Login = React.memo(({loginTC,setCaptchaTC, isAuth, id, login, captcha, ...
         loginTC(formData);
 
     }
-    if (isAuth && id && id !== 2 && login) {
-        return <Redirect to={'/profile'} />
-    }
+
+        if (isAuth) {
+            return <Redirect to={'/profile'} />
+        }
 
        return <div>
         <h2>Login</h2>

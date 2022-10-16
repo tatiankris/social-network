@@ -57,7 +57,7 @@ export const authAPI = {
     },
 
     login ({email, password, rememberMe, captcha = null}: FormDataType) {
-        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
+        return instance.post<ResponseType<{userId: number}>>(`auth/login`, {email, password, rememberMe, captcha})
     },
 
     logout () {

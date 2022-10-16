@@ -36,8 +36,8 @@ export const initializedSuccess = () => {
 }
 
 export const initializeApp = () => async (dispatch: TypedDispatch) => {
-    await dispatch(getAuthUserDataTC())
-    dispatch(initializedSuccess())
+    const res = await dispatch(getAuthUserDataTC())
+    res && dispatch(initializedSuccess())
 }
 
 
