@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import {BrowserRouter, Redirect, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter, Redirect, Route, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
@@ -77,9 +77,6 @@ class App extends React.Component<AppPropsType, AppLocalStateType> {
                     {/*<React.Suspense fallback={<div>Loading...</div>}><HeaderContainer /></React.Suspense>*/}
                     <Navbar />
                     <div className={'app-wrapper-content'}>
-                        {/*<Route exact path={'/'} render={ () => <Redirect to={'/profile'}/> } />*/}
-
-                        {/*<Route exact path={'/'} render={ () => <ProfileContainer/> } />*/}
                         <Route exact path={'/profile/:userId'} render={ () => <ProfileContainer/>}
                         />
                         <Route exact path={'/profile'} render={() => <ProfileContainer/>} />
@@ -89,7 +86,7 @@ class App extends React.Component<AppPropsType, AppLocalStateType> {
                         <Route path={'/settings'} render={ () => <Settings /> } />
                         <Route path={'/users'} render={withSuspense(UsersContainer)}/>
                         <Route path={'/login'} render={ () => <Login /> } />
-                        <Route path={'/social-network'} render={() => <Redirect to={'/profile'}/>} />
+                        <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>} />
                     </div>
                     <div className={'rigth-content'}>
 
@@ -118,11 +115,11 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 }
 
 const AppContainer = compose<React.ComponentType>(withRouter, connect(mapStateToProps, {initializeApp, setAppErrorTC}))(App)
-const SamuraiJSApp = () => <BrowserRouter>
+const SamuraiJSApp = () => <HashRouter>
     <Provider store={store}>
         <AppContainer />
     </Provider>
-</BrowserRouter>
+</HashRouter>
 
 export default SamuraiJSApp;
 
