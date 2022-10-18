@@ -5,11 +5,11 @@
 
 .dialogsItems {
     padding: 10px;
-    color: black;
+    /*color: black;*/
 }
 
 .dialog {
-    color: black;
+    /*color: black;*/
 }
 .dialog img {
     width: 50px;
@@ -23,7 +23,7 @@
 }
 
 .massage {
-    color: black;
+    /*color: black;*/
 }
 
 .dialogs .active {
