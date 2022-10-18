@@ -78,8 +78,8 @@ class App extends React.Component<AppPropsType, AppLocalStateType> {
                     <Navbar />
                     <div className={'app-wrapper-content'}>
                         {/*<Route exact path={'/'} render={ () => <Redirect to={'/profile'}/> } />*/}
-                        <Route exact path={'/'} render={ () => <ProfileContainer/> } />
 
+                        {/*<Route exact path={'/'} render={ () => <ProfileContainer/> } />*/}
                         <Route exact path={'/profile/:userId'} render={ () => <ProfileContainer/>}
                         />
                         <Route exact path={'/profile'} render={() => <ProfileContainer/>} />
@@ -89,6 +89,7 @@ class App extends React.Component<AppPropsType, AppLocalStateType> {
                         <Route path={'/settings'} render={ () => <Settings /> } />
                         <Route path={'/users'} render={withSuspense(UsersContainer)}/>
                         <Route path={'/login'} render={ () => <Login /> } />
+                        <Route path={'/social-network'} render={() => <Redirect to={'/profile'}/>} />
                     </div>
                     <div className={'rigth-content'}>
 

@@ -1,7 +1,7 @@
 import React, {Component, PropsWithChildren, ReactPropTypes, TextareaHTMLAttributes} from 'react';
 import styles from './FormsControls.module.css'
 
-const FormControl: React.FC<any> = ({input, meta, children, ...props}) => {
+const FormControl: React.FC<any> = ({meta, children, ...props}) => {
 
     const hasError = meta.error && meta.touched
     return (

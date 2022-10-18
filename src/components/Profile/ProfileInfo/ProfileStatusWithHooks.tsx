@@ -36,7 +36,7 @@ const ProfileStatusWithHooks = React.memo(({status, updateStatus, isOwner, ...pr
             <div className={s.editableStatus}>
                 {isOwner && !editMode &&
                     <div>
-                        <span className={s.span} onDoubleClick={activateEditMode}>{status || "----"}</span>
+                        <span className={s.span} onDoubleClick={activateEditMode}>{status || "Hello, It's my profile!"}</span>
                         <div className={s.update}>Double click to update status.</div>
                     </div>
                 }

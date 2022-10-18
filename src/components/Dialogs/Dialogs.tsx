@@ -5,6 +5,7 @@ import Message from "./Message/Message";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Textarea} from "../common/FormsControls/FormsControls";
 import {maxLengthCreater, required} from "../../utils/validators/validators";
+import cs from "../../common-styles/BlockCommonStyles.module.scss";
 
 
 export type dialogsPageType = {
@@ -38,7 +39,7 @@ const Dialogs = React.memo(({dialogsPage, isAuth, sendMessageAC, ...props}: Dial
 
     }
     return (
-        <div className={s.dialogs}>
+        <div className={`${s.dialogs} ${cs.block}`}>
             <div className={s.dialogsItems}>
                 {dialogsElements}
             </div>

@@ -8,6 +8,7 @@ import {loginTC, setCaptchaTC} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
 import formStyle from "../common/FormsControls/FormsControls.module.css"
+import cs from '../../common-styles/BlockCommonStyles.module.scss'
 
 export type FormDataType = {
     email: string
@@ -43,8 +44,13 @@ const Login = React.memo(({loginTC,setCaptchaTC, isAuth, id, login, captcha, ...
             return <Redirect to={'/profile'} />
         }
 
-       return <div>
+       return <div className={cs.block}>
         <h2>Login</h2>
+           <div style={{marginBottom: '8px'}}>
+               <b>Free account:</b>
+               <br/>Email: free@samuraijs.com
+               <br/>Password: free
+           </div>
         <LoginReduxForm onSubmit={onSubmit}/>
            {
                captcha && <div>
@@ -52,6 +58,7 @@ const Login = React.memo(({loginTC,setCaptchaTC, isAuth, id, login, captcha, ...
                    <button onClick={changeCaptcha}>change captcha</button>
                </div>
            }
+
     </div>
 })
 

@@ -1,0 +1,8 @@
+@import "./sass/mixins";
+
+.block {
+
+    @include container();
+    flex-direction: column;
+    position: relative;
+}

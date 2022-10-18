@@ -3,6 +3,7 @@ import styles from "./Users.module.css"
 import {userType} from "../../redux/users-reducer";
 import User from "./User";
 import Paginator from "../common/Paginator/Paginator";
+import cs from "../../common-styles/BlockCommonStyles.module.scss";
 
 type UsersPropsType = {
     users: Array<userType>
@@ -18,7 +19,7 @@ type UsersPropsType = {
     function Users ({users, followingInProgress, followTC, unfollowTC, ...props}: UsersPropsType) {
 
         return (
-            <div>
+            <div className={cs.block}>
                     <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
                                currentPage={props.currentPage} onPageChanged={props.onPageChanged}
                                portionSize={10}

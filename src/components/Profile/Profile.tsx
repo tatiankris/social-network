@@ -5,6 +5,7 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {profileAPI, ProfileResponseType} from "../../api/api";
 import userPhoto from '../../assets/images/user.png'
 import s from './Profile.module.scss'
+import cs from "../../common-styles/BlockCommonStyles.module.scss";
 
 
 type ProfilePropsType = {
@@ -19,7 +20,7 @@ const Profile = ({profile, status, updateStatus, isOwner, updatePhoto, ...props}
 
 
     return (
-        <div className={s.main} >
+        <div className={cs.block} >
             <ProfileInfo updatePhoto={updatePhoto} isOwner={isOwner} profile={profile} status={status} updateStatus={updateStatus}/>
             <MyPostsContainer />
         </div>
